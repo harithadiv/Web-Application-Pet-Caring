@@ -1,0 +1,19 @@
+Constraints:
+
+1. There are 3 kinds of Users : Pet Owner, Caretaker and PCS admin. 
+2. Every Caretaker is either a Part-time or Full-time Caretaker. 
+3. Every Caretaker earns Salary. 
+4. Every Caretaker can care for a specific Pet any number of times. 
+5. A Salary is based on Caretaker's base salary, Caretaker's rating, number of Pet-Days and Pet-Types taken care of.  
+6. Every Pet belongs to a type of animal.
+7. Every Pet is identified by their pet ID and Pet Owner's ID (UID).  
+8. Every Pet Owner is identified by their UID.
+9. Caretaker can take care of more than one Pet. 
+10. Pet Owners can bid for Caretaker's services.
+11. Every Pet is owned by 1 Pet Owner.
+12. Every Pet Owner can own 1 or more Pets.
+13. Both the Pet Owner and Caretaker should agree on how to transfer the Pet. 
+14. Every Pet Owner can post a review for each Transaction.
+15. Full-time caretaker cannot apply for leave if there is at least one Pet under their care.
+16. For every job, where a Pet owned by the Pet Owner is taken care of by the Caretaker, there must be exactly one Transaction involved. 
+17. Every Transaction corresponds to exactly one job. 
