@@ -1,17 +1,31 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const logger = require("morgan");
+const passport = require("passport");
 
 require("dotenv").config();
 
+var app = express();
+// Authentication Setup
+
+require("./auth").init(app);
+app.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 var indexRouter = require("./routes/index");
 var authRouter = require("./routes/auth");
 var bidRouter = require("./routes/bid");
 var browseRouter = require("./routes/browse");
-
-var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -24,7 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/auth", authRouter);
+app.use("/", authRouter);
 app.use("/bid", bidRouter);
 app.use("/browse", browseRouter);
 
