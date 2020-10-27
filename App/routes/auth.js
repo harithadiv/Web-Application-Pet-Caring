@@ -3,9 +3,6 @@ var router = express.Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const sql_query = require("../sql");
-router.get("/register", function (req, res, next) {
-  res.render("register");
-});
 
 const round = 10;
 const salt = bcrypt.genSaltSync(round);
@@ -13,6 +10,14 @@ const salt = bcrypt.genSaltSync(round);
 const { Pool } = require("pg");
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+});
+
+router.get("/register", function (req, res, next) {
+  res.render("register");
+});
+
+router.get("/login", function (req, res, next) {
+  res.render("login");
 });
 
 router.post("/register", function (req, res, next) {
@@ -24,6 +29,13 @@ router.post("/register", function (req, res, next) {
   res.redirect("/");
 });
 
-router.get("/login", function (req, res, next) {});
+/* LOGIN */
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/register",
+  })
+);
 
 module.exports = router;
