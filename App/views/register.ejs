@@ -10,11 +10,12 @@
 		<title>Register</title>
   </head>
 	<body>                    
-        <form action="/register" method="post">
+        <form action="/auth/register" method="post">
+            <input type="radio" name="role" value="petowner" checked> Pet Owner<br>
+            <input type="radio" name="role" value="caretaker"> Caretaker<br>
             <input type="text" id="firstName" placeholder="First name" required="required" autofocus="autofocus" name="firstname">
             <label for="firstName">First name</label>
             <br>
-
             <input type="text" id="lastName" placeholder="Last name" required="required" name="lastname">
             <label for="lastName">Last name</label>
             <br>
