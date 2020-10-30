@@ -1,6 +1,8 @@
 CREATE TABLE users(
     username varchar(64) PRIMARY KEY,
-    password varchar(64) NOT NULL
+    password varchar(64) NOT NULL,
+    first_name varchar(64),
+    last_name varchar(64)
 );
 
 CREATE TABLE petowners(

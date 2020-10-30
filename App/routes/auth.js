@@ -1,23 +1,22 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const sql_query = require("../sql");
-
-const round = 10;
-const salt = bcrypt.genSaltSync(round);
-
 const { Pool } = require("pg");
+
+// Connect to database
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+// Password hashing setup
+const round = 10;
+const salt = bcrypt.genSaltSync(round);
+
+// Register
 router.get("/register", function (req, res, next) {
   res.render("register");
-});
-
-router.get("/login", function (req, res, next) {
-  res.render("login");
 });
 
 router.post("/register", function (req, res, next) {
@@ -25,17 +24,41 @@ router.post("/register", function (req, res, next) {
   var password = bcrypt.hashSync(req.body.password, salt);
   var firstname = req.body.firstname;
   var lastname = req.body.lastname;
-  pool.query(sql_query.query.add_user, [username, password]);
+  var role = req.body.role;
+  pool.query(sql_query.query.add_user, [
+    username,
+    password,
+    firstname,
+    lastname,
+  ]);
+  if (role == "petowner") {
+    pool.query(sql_query.query.add_petowner, [username]);
+  } else if (role == "caretaker") {
+    pool.query(sql_query.query.add_caretaker, [username]);
+  }
   res.redirect("/");
 });
 
-/* LOGIN */
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/register",
-  })
-);
+// Login
+router.get("/login", function (req, res, next) {
+  res.render("login");
+});
+
+router.post("/login", function (req, res, next) {
+  passport.authenticate("local", function (err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.redirect("/auth/login");
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect("/users/" + user.username);
+    });
+  })(req, res, next);
+});
 
 module.exports = router;
