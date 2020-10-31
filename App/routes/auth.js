@@ -4,6 +4,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const sql_query = require("../sql");
 const { Pool } = require("pg");
+const antiMiddleware = require("../auth/antimiddle.js");
 
 // Connect to database
 const pool = new Pool({
@@ -40,7 +41,7 @@ router.post("/register", function (req, res, next) {
 });
 
 // Login
-router.get("/login", function (req, res, next) {
+router.get("/login", antiMiddleware(), function (req, res, next) {
   res.render("login");
 });
 
@@ -56,6 +57,7 @@ router.post("/login", function (req, res, next) {
       if (err) {
         return next(err);
       }
+      console.log(user);
       return res.redirect("/users/" + user.username);
     });
   })(req, res, next);
