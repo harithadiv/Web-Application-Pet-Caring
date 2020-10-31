@@ -4,6 +4,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const sql_query = require("../sql");
 const { Pool } = require("pg");
+const antiMiddleware = require("../auth/antimiddle.js");
 
 // Connect to database
 const pool = new Pool({
@@ -15,11 +16,11 @@ const round = 10;
 const salt = bcrypt.genSaltSync(round);
 
 // Register
-router.get("/register", function (req, res, next) {
+router.get("/register", antiMiddleware(), function (req, res, next) {
   res.render("register");
 });
 
-router.post("/register", function (req, res, next) {
+router.post("/register", antiMiddleware(), function (req, res, next) {
   var username = req.body.username;
   var password = bcrypt.hashSync(req.body.password, salt);
   var firstname = req.body.firstname;
@@ -40,11 +41,11 @@ router.post("/register", function (req, res, next) {
 });
 
 // Login
-router.get("/login", function (req, res, next) {
+router.get("/login", antiMiddleware(), function (req, res, next) {
   res.render("login");
 });
 
-router.post("/login", function (req, res, next) {
+router.post("/login", antiMiddleware(), function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
     if (err) {
       return next(err);
@@ -56,7 +57,29 @@ router.post("/login", function (req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.redirect("/users/" + user.username);
+    });
+    pool.query(sql_query.query.get_petowner, [user.username], (err, data) => {
+      if (err) {
+        return next(err);
+      } else if (data.rows.length == 0) {
+        pool.query(
+          sql_query.query.get_caretaker,
+          [user.username],
+          (err, data) => {
+            if (err) {
+              return next(err);
+            } else if (data.rows.length == 0) {
+              return next();
+            } else {
+              req.session.role = "caretaker";
+              return res.redirect("/caretakers/" + user.username);
+            }
+          }
+        );
+      } else {
+        req.session.role = "petowner";
+        return res.redirect("/petowners/" + user.username);
+      }
     });
   })(req, res, next);
 });
