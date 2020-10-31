@@ -15,7 +15,8 @@ const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const bidRouter = require("./routes/bid");
 const browseRouter = require("./routes/browse");
-const usersRouter = require("./routes/users");
+const petownersRouter = require("./routes/petowners");
+const caretakersRouter = require("./routes/caretakers");
 
 // authentication setup
 require("./auth").init(app);
@@ -44,11 +45,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-
 app.use("/auth", authRouter);
 app.use("/bid", bidRouter);
 app.use("/browse", browseRouter);
-app.use("/users", usersRouter);
+app.use("/petowners", petownersRouter);
+app.use("/caretakers", caretakersRouter);
 app.use("/", indexRouter);
 
 // Catch 404 and forward to error handler

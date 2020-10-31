@@ -57,8 +57,29 @@ router.post("/login", antiMiddleware(), function (req, res, next) {
       if (err) {
         return next(err);
       }
-      console.log(user);
-      return res.redirect("/users/" + user.username);
+    });
+    pool.query(sql_query.query.get_petowner, [user.username], (err, data) => {
+      if (err) {
+        return next(err);
+      } else if (data.rows.length == 0) {
+        pool.query(
+          sql_query.query.get_caretaker,
+          [user.username],
+          (err, data) => {
+            if (err) {
+              return next(err);
+            } else if (data.rows.length == 0) {
+              return next();
+            } else {
+              req.session.role = "caretaker";
+              return res.redirect("/caretakers/" + user.username);
+            }
+          }
+        );
+      } else {
+        req.session.role = "petowner";
+        return res.redirect("/petowners/" + user.username);
+      }
     });
   })(req, res, next);
 });
