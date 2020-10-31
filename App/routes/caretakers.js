@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const sql_query = require("../sql");
-const authMiddleware = require("../auth/middleware.js");
+const caretakerMiddleware = require("../auth/caremiddle");
 const { Pool } = require("pg");
 
 // Connect to database
@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 // Profile page
-router.get("/:username", authMiddleware(), function (req, res, next) {
+router.get("/:username", caretakerMiddleware(), function (req, res, next) {
   const username = req.params.username;
   pool.query(sql_query.query.get_user, [username], (err, data) => {
     if (err) {

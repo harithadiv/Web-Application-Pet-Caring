@@ -13,6 +13,12 @@ sql.query = {
   get_pets: "SELECT * FROM pets WHERE username=$1",
   add_pet:
     "INSERT INTO pets (username, name, animal_type, special_requirement) VALUES ($1,$2,$3,$4)",
+
+  // petowners
+  get_petowner: "SELECT * FROM petowners WHERE username=$1",
+
+  // caretakers
+  get_caretaker: "SELECT * FROM caretakers WHERE username=$1",
 };
 
 module.exports = sql;
