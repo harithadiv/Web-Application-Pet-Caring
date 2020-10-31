@@ -16,11 +16,11 @@ const round = 10;
 const salt = bcrypt.genSaltSync(round);
 
 // Register
-router.get("/register", function (req, res, next) {
+router.get("/register", antiMiddleware(), function (req, res, next) {
   res.render("register");
 });
 
-router.post("/register", function (req, res, next) {
+router.post("/register", antiMiddleware(), function (req, res, next) {
   var username = req.body.username;
   var password = bcrypt.hashSync(req.body.password, salt);
   var firstname = req.body.firstname;
@@ -45,7 +45,7 @@ router.get("/login", antiMiddleware(), function (req, res, next) {
   res.render("login");
 });
 
-router.post("/login", function (req, res, next) {
+router.post("/login", antiMiddleware(), function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
     if (err) {
       return next(err);
