@@ -8,6 +8,11 @@ sql.query = {
   add_caretaker: "INSERT INTO caretakers (username) VALUES ($1)",
   // login
   get_user: "SELECT * FROM users WHERE username=$1",
+
+  // pets
+  get_pets: "SELECT * FROM pets WHERE username=$1",
+  add_pet:
+    "INSERT INTO pets (username, name, animal_type, special_requirement) VALUES ($1,$2,$3,$4)",
 };
 
 module.exports = sql;
