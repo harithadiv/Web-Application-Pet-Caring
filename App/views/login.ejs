@@ -31,12 +31,18 @@
       <form class="form-signin" action="/auth/login" method="post">
         <img class="mb-4 image" src="/images/logo.png" alt="" width="150" height="150">
         <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
-        <label for="text" class="sr-only">Username</label>
-          <input type="text" id="username" class="form-control" placeholder="Username" name="username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <br>
-        <button class="btn btn-default btn-primary" type="submit">Enter</button>
+        <div class="login-bar shadow p-3 mb-5 bg-white rounded">
+          <label for="text" class="sr-only">Username</label>
+            <input type="text" id="username" class="form-control" placeholder="Username" name="username" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          
+          <button class="btn btn-default btn-primary" type="submit">Enter</button>
+        </div>
+
+        <div class="shadow p-3 mb-5 bg-white rounded">
+          <h6>New user? <a href="/auth/register">Register here.</a></h6>
+        </div>
         <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
   </form>
 </body>

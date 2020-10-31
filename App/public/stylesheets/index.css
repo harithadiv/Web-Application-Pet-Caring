@@ -1,0 +1,80 @@
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+
+    /* Move down content because we have a fixed navbar that is 3.5rem tall */
+    html, body { 
+        overflow-x: hidden; 
+    }
+
+  .jumbotron{
+    margin: 0px;
+    background-color: #eee;
+  }
+
+  .container-1 h2{
+    padding-top: 50px;
+    text-align: center;
+    font-weight:25;
+    font-style:bold; 
+    color: #b5d3e7;
+    font-weight: 700;
+    text-shadow: -1.5px -1.5px 0 #000;
+   
+
+  }
+
+  .container-1 p{
+    text-align: center;
+    padding-top: 50px;
+    font-weight: 25;
+    font-size: 1.5em;
+    font-style: bold;
+    color:#1c2e4a;
+  }
+
+.container-2{
+    margin: 0px;
+    padding-top: 25px;
+}
+
+.role-heading{
+    text-align: center;
+    font-weight: 25;
+    font-size: 1.5em;
+    color: #b5d3e7;
+    text-shadow: -1.5px -1.5px 0 #000;
+    
+}
+
+.row {
+    padding-top: 20px;
+}
+
+.row h2{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.present {
+    border-image: fill;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: #b5d3e7 ;
+  }
+
+  .po{
+    color:#8da47e;
+    text-shadow: -1.5px -1.5px 0 #000;
+  }
+
+  .ct{
+      color:#e9bbb5;
+      text-shadow: -1.5px -1.5px 0 #000;
+  }
+
+  .row p{
+      padding-top:10px;
+      text-align: center;
+  }
