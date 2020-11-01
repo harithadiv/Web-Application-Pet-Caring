@@ -20,7 +20,7 @@ router.get("/:username", caretakerMiddleware(), function (req, res, next) {
     } else {
       const firstName = data.rows[0].first_name;
       const lastName = data.rows[0].last_name;
-      res.render("profile", {
+      res.render("caretakers", {
         firstName: firstName,
         lastName: lastName,
       });
