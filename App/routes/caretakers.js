@@ -23,6 +23,7 @@ router.get("/:username", caretakerMiddleware(), function (req, res, next) {
       res.render("profile", {
         firstName: firstName,
         lastName: lastName,
+        userName: username,
       });
     }
   });

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Place Bid</title>
+  </head>
+	<body>                    
+        <form action="/bid" method="post">
+            <input type="hidden" id="pousername" name="pousername" value= "e0357459">
+            <input type="date" id="startDate" required="required" autofocus="autofocus" name="endDate">
+            <label for="firstName">Start Date</label>
+            <br>
+            <input type="date" id="endDate" required="required" name="endDate">
+            <label for="lastName">End Date</label>
+            <br>
+            <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
+            <label for="username">Caretaker username</label>
+            <br>
+            <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
+            <label for="inputPassword">Bidding amount</label>
+            <br>
+            <button type="submit">Bid</button>       
+          </form>               	
+  </body>
+</html>
