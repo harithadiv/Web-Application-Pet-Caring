@@ -27,7 +27,7 @@ CREATE TABLE fulltime(
 );
 
 CREATE TABLE pets(
-    username varchar(64) REFERENCES users(username)
+    username varchar(64) REFERENCES petowners(username)
                          ON DELETE cascade,
     name varchar(64),
     animal_type varchar(64),
