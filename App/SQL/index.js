@@ -19,6 +19,8 @@ sql.query = {
 
   // caretakers
   get_caretaker: "SELECT * FROM caretakers WHERE username=$1",
+
+  browse: "SELECT * FROM availability JOIN users ON availability.username=users.username",
   
   // register
   add_bid:
