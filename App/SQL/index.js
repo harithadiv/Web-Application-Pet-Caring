@@ -19,6 +19,10 @@ sql.query = {
 
   // caretakers
   get_caretaker: "SELECT * FROM caretakers WHERE username=$1",
+  
+  // register
+  add_bid:
+    "INSERT INTO bid (pouname, ctuname, name, s_date, e_date, price) VALUES ($1,$2,$3,$4,$5,$6)",
 };
 
 module.exports = sql;
