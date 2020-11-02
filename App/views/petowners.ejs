@@ -1,3 +1,4 @@
+<!-- <h1><%= firstName + " " + lastName%></h1> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,7 @@
 
     </style>
 </head>
-<body class = "text-center">
+<body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
@@ -92,33 +93,73 @@
 
 <div class="container bootdey flex-grow-1 container-p-y">
 
-                <div class="card mb-4">
-                    <form action="/bid" method="post">
-                        <input type="hidden" id="pousername" name="pousername" value= <%= username %>>
-                        <img class="mb-4 image" src="/images/bid.jpg" alt="" width="250" height="150">
-                        <h1 class="h3 mb-3 font-weight-normal">Bid for caretaker</h1>
-                        <div class="login-bar bg-white rounded">
-                          <label for="startDate" class="sr-only">Start Date</label>
-                          <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
-                          <br>
-                          <label for="endDate" class="sr-only">End Date</label>
-                          <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
-                          <br>
-                          <label for="caretakerUsername" class="sr-only">Caretaker username</label>
-                          <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
-                          <br>
-                          <label for="petname" class="sr-only">Pet Name</label>
-                          <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
-                          <br>
-                          <label for="biddingAmount" class="sr-only">Bidding amount</label>
-                          <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
-                          <br>
-                          <button type="submit">Bid</button>    
-                        </div>
-                
-                        <p class="mt-5 mb-3 text-muted">&copy; PCS 2020</p>
-                    </form>
-                </div>
+            <div class="media align-items-center py-3 mb-3">
+              <img src="/images/girl2.jpg" alt="" class="d-block ui-w-100 rounded-circle" >
+              <div class="media-body ml-4">
+                <h4 class="font-weight-bold mb-0"><%= firstName + " " + lastName%></h4>
+                <a href="javascript:void(0)" class="btn btn-primary btn-sm" >Edit</a>&nbsp;
+                <a href="javascript:void(0)" class="btn btn-default btn-sm">Profile</a>&nbsp;
+
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-body">
+                <table class="table user-view-table m-0">
+                  <tbody>
+                    <tr>
+                      <td>Registered:</td>
+                      <td>25/11/2019</td>
+                    </tr>
+                    <tr>
+                      <td>Username:</td>
+                      <td><%= username %></td>
+                    </tr>
+                    <tr>
+                      <td>Role:</td>
+                      <td>Pet Owner</td>
+                    </tr>
+                    <tr>
+                      <td>Address:</td>
+                      <td>15 Hawthorn Lane</td>
+                    </tr>
+                    <tr>
+                        <td>Pets:</td>
+                        <td>Max, Snowball, Mr. Meowgi</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+            </div>
+
+
+            <div class="card mb-4">
+              <div class="table-responsive">
+                <table class="table card-table m-0">
+                  <tbody>
+                    <tr>
+                      <th>Bids</th>
+                      <th>Status</th>
+                    </tr>
+                    <tr>
+                      <td>Lucie Rodgers (01/01/2020)</td>
+                      <td>Accepted</td>
+                    </tr>
+                    <tr>
+                      <td>Mohsin Weeks (02/01/2020-05/01/2020)</td>
+                      <td>Pending</td>
+                    </tr>
+                    <tr>
+                      <td>Bailey Bevan (03/01/2002)</td>
+                      <td>Rejected</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <a href="/bid" class="btn btn-primary btn-sm" >Place Bid</a>&nbsp;
 
           </div>
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
