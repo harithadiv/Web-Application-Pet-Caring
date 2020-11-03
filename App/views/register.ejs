@@ -1,31 +1,54 @@
-<!DOCTYPE html>
-<html>
-  <head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
+<!doctype html>
+<html lang="en">
 
-		<title>Register</title>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+    <!-- Bootstrap core CSS -->
+    <link rel='stylesheet' href='/css/bootstrap.min.css' />
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link rel='stylesheet' href='/stylesheets/login.css' />
   </head>
-	<body>                    
-        <form action="/auth/register" method="post">
-            <input type="radio" name="role" value="petowner" checked> Pet Owner<br>
-            <input type="radio" name="role" value="caretaker"> Caretaker<br>
-            <input type="text" id="firstName" placeholder="First name" required="required" autofocus="autofocus" name="firstname">
-            <label for="firstName">First name</label>
-            <br>
-            <input type="text" id="lastName" placeholder="Last name" required="required" name="lastname">
-            <label for="lastName">Last name</label>
-            <br>
-            <input type="text" id="username" placeholder="username" required="required" name="username">
-            <label for="username">username</label>
-            <br>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password">
-            <label for="inputPassword">Password</label>
-            <br>
-            <button type="submit">Register</button>       
-        </form>               	
-  </body>
+  <body class="text-center"> 
+      <form class="form-signin" action="/auth/register" method="post">
+        <img class="mb-4 image" src="/images/logo.png" alt="" width="150" height="150">
+        <h1 class="h3 mb-3 font-weight-normal register-font">Register</h1>
+        <div class="login-bar shadow p-3 mb-5 bg-white rounded">
+          <div class="select-role"> 
+            <select class="custom-select custom-select-sm" name="role">
+              <option value="petowner">Register for Petowner</option>
+              <option value="caretaker">Register for Caretaker</option>
+            </select>
+          </div>
+          <input type="text" id="firstName" class="form-control" placeholder="First name" required="required" autofocus="autofocus" name="firstname">
+          <input type="text" id="lastName" class="form-control" placeholder="Last name" required="required" name="lastname">
+          <input type="text" id="username" class="form-control" placeholder="Username" required="required" name="username">
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password">
+          <button class="btn btn-default btn-primary" type="submit">Create an account</button>
+        </div>
+
+        <div class="shadow p-3 mb-5 bg-white rounded">
+          <h6>Existing user? <a href="/auth/login">Login here.</a></h6>
+        </div>
+        <p class="mt-5 mb-3 text-muted">&copy; PCS 2020</p>
+  </form>
+</body>
 </html>
