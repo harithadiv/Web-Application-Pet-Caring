@@ -60,7 +60,12 @@
         .fa-check {
           color: #8da47e;
         }
-          
+        
+        label {
+          display: inline-block;
+          width: 160px;
+          text-align: right;
+        } ​
 
     </style>
 </head>
@@ -97,24 +102,33 @@
                         <input type="hidden" id="pousername" name="pousername" value= <%= username %>>
                         <img class="mb-4 image" src="/images/bid.jpg" alt="" width="250" height="150">
                         <h1 class="h3 mb-3 font-weight-normal">Bid for caretaker</h1>
-                        <div class="login-bar bg-white rounded">
-                          <label for="startDate" >Start Date</label>
-                          <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
-                          <br>
-                          <label for="endDate" >End Date</label>
-                          <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
-                          <br>
-                          <label for="caretakerUsername" class="sr-only">Caretaker username</label>
-                          <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
-                          <br>
-                          <label for="petname" class="sr-only">Pet Name</label>
-                          <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
-                          <br>
-                          <label for="biddingAmount" class="sr-only">Bidding amount</label>
-                          <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
-                          <br>
+                            <div class="block">
+                              <label for="startDate" >Start Date</label>
+                              <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
+                              <br>
+                            </div>
+                            <div class="block">
+                              <label for="endDate" >End Date</label>
+                              <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
+                              <br>
+                            </div>
+                            <div class="block">
+                              <label for="caretakerUsername" >Caretaker username</label>
+                              <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
+                              <br>
+                            </div>
+                            <div class="block">
+                              <label for="petname">Pet Name</label>
+                              <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
+                              <br>
+                            </div>
+                            <div class="block">
+                              <label for="biddingAmount">Bidding amount</label>
+                              <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
+                              <br>
+                            </div>
+                          
                           <button type="submit">Bid</button>    
-                        </div>
                 
                         <p class="mt-5 mb-3 text-muted">&copy; PCS 2020</p>
                     </form>
