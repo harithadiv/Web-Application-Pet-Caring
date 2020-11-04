@@ -5,16 +5,15 @@ var router = express.Router();
 router.get("/", function (req, res, next) {
   var status = "notLoggedIn";
   if (req.isAuthenticated()) {
+    var username = req.session.passport.user;
     if (req.session.role == "petowner") {
       status = "petowner";
     } else if (req.session.role == "caretaker") {
       status = "caretaker";
-    } else {
-      res.next();
-    }
+    } 
   }
 
-  res.render("index", { status: status });
+  res.render("index", { status: status, username: username });
 });
 
 module.exports = router;

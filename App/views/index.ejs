@@ -31,6 +31,7 @@
     <link href="/stylesheets/index.css" rel="stylesheet">
   </head>
   <body>
+  
     <!-- Image and text -->
     <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
       <a class="navbar-brand" href="/">PCS</a>
@@ -42,15 +43,39 @@
           <li class="nav-item ">
             <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
           </li>
+          <% if (status == "notLoggedIn") { %>
           <li class="nav-item">
             <a class="nav-link" href="/auth/register">Register</a>
           </li>
+          <%}%>
+          <% if (status == "notLoggedIn") { %>
           <li class="nav-item">
             <a class="nav-link" href="/auth/login">Login</a>
           </li>
+          <%}%>
+          <% if (status == "petowner" ||status == "caretaker") { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/petowners/<%= username %>">Profile</a>
+            </li>
+            <%}%>
+          <% if (status == "petowner") { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/browse">Browse</a>
+          </li>
+          <%}%>
+          <% if (status == "caretaker") { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Bids</a>
+            </li>
+            <%}%>  
           <li class="nav-item">
             <a class="nav-link" href="/">About us</a>
           </li>
+          <% if (status == "caretaker" || status == "petowner") { %>
+            <li class="nav-item logout-btn" >
+              <a class="nav-link" href="/auth/logout">Logout</a>
+            </li>
+            <%}%> 
         </ul>
       </div>
     </nav>
@@ -71,7 +96,17 @@
   <div class="container-2">
     <!-- Example row of columns -->
     <div class="role-heading">
-        <h1>Join our family!</h1>
+      <% if (status == "caretaker") { %>
+        <h1>Welcome to our PCS family!</h1>
+        <p>We are thrilled that you have decided to join us! Add pets to your profile and browse our catalogue of caretakers right away!</p>
+        <%}%> 
+      <% if (status == "petowner") { %>
+        <h1>Welcome to our PCS family!</h1>
+        <p>We are thrilled that you have decided the join our caretaker community! Update your profile to get started right away! </p>
+        <%}%> 
+      <% if (status == "notLoggedIn") { %>
+        <h1>Join our PCS family today!</h1>
+        <%}%> 
     </div>
     <div class="row">
 
