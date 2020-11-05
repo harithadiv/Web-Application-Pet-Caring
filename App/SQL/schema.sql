@@ -106,8 +106,7 @@ INSERT INTO users (username, password, first_name, last_name) VALUES ('cindy', '
 INSERT INTO caretakers (username, salary) VALUES ('cindy', 2000);
 INSERT INTO parttime (username) VALUES ('cindy');
 INSERT INTO users (username, password, first_name, last_name) VALUES ('max', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
-INSERT INTO caretakers (username, salary) VALUES ('max');
-INSERT INTO caretakers (username) VALUES ('max');
+INSERT INTO petowners (username) VALUES ('max');
 
 
 INSERT INTO animals (a_type) VALUES ('cat');
