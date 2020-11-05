@@ -30,6 +30,10 @@ sql.query = {
   // register
   add_bid:
     "INSERT INTO bid (pouname, ctuname, name, s_date, e_date, price) VALUES ($1,$2,$3,$4,$5,$6)",
+
+  // admin queries
+  get_num_of_pets_within_month:
+    "SELECT COUNT(DISTINCT name) FROM bids WHERE is_win = TRUE AND (s_date >= '2021-05-01' AND s_date <= '2021-05-31') OR (e_date >= '2021-05-01' AND e_date <= '2021-05-31');",
 };
 
 module.exports = sql;

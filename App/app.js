@@ -18,6 +18,7 @@ const browseRouter = require("./routes/browse");
 const petownersRouter = require("./routes/petowners");
 const caretakersRouter = require("./routes/caretakers");
 const petsRouter = require("./routes/pets");
+const adminRouter = require("./routes/admin");
 
 // authentication setup
 require("./auth").init(app);
@@ -51,6 +52,7 @@ app.use("/bid", bidRouter);
 app.use("/browse", browseRouter);
 app.use("/petowners", petownersRouter);
 app.use("/caretakers", caretakersRouter);
+app.use("/admin", adminRouter);
 app.use("/pets", petsRouter);
 app.use("/", indexRouter);
 
