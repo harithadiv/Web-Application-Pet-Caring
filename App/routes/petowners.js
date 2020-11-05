@@ -12,7 +12,7 @@ const pool = new Pool({
 // Profile page
 router.get("/:username", petMiddleware(), function (req, res, next) {
   const username = req.params.username;
-  
+
   var pets = [];
   pool.query(sql_query.query.get_pets, [username], (err, data) => {
     pets = data.rows;
@@ -27,10 +27,12 @@ router.get("/:username", petMiddleware(), function (req, res, next) {
       const firstName = data.rows[0].first_name;
       const lastName = data.rows[0].last_name;
       res.render("petowners",
-      { firstName: firstName,
-        lastName: lastName,
-        username: username,
-        pets: pets });
+        {
+          firstName: firstName,
+          lastName: lastName,
+          username: username,
+          pets: pets
+        });
     }
   });
 });

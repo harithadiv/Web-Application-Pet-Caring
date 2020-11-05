@@ -23,6 +23,9 @@ sql.query = {
 
   browse: "SELECT * FROM availability JOIN users ON availability.username=users.username",
   
+  // insert pet
+  insert_pet: "INSERT INTO pets VALUES ($1, $2, $3, $4)",
+
   // register
   add_bid:
     "INSERT INTO bid (pouname, ctuname, name, s_date, e_date, price) VALUES ($1,$2,$3,$4,$5,$6)",
