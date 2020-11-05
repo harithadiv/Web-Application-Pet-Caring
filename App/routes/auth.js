@@ -27,6 +27,7 @@ router.post("/register", antiMiddleware(), function (req, res, next) {
   var firstname = req.body.firstname;
   var lastname = req.body.lastname;
   var role = req.body.role;
+<<<<<<< HEAD
   pool.query(sql_query.query.add_user, [
     username,
     password,
@@ -39,6 +40,23 @@ router.post("/register", antiMiddleware(), function (req, res, next) {
     pool.query(sql_query.query.add_caretaker, [username]);
   }
   res.redirect("/auth/thankyou");
+=======
+  pool.query(
+    sql_query.query.add_user,
+    [username, password, firstname, lastname],
+    (err, data) => {
+      if (err) {
+        return next(err);
+      }
+      if (role == "petowner") {
+        pool.query(sql_query.query.add_petowner, [username]);
+      } else if (role == "caretaker") {
+        pool.query(sql_query.query.add_caretaker, [username]);
+      }
+      res.redirect("/");
+    }
+  );
+>>>>>>> e7bde3b71c69082fbf1bbff212365450572c2da4
 });
 
 // Login
@@ -76,7 +94,16 @@ router.post("/login", antiMiddleware(), function (req, res, next) {
             if (err) {
               return next(err);
             } else if (data.rows.length == 0) {
-              return next();
+              pool.query(sql_query.get_admin, [user.username], (err, data) => {
+                if (err) {
+                  return next(err);
+                } else if (data.rows.length == 0) {
+                  return next();
+                } else {
+                  req.session.role = "admin";
+                  return res.redirect("/admin/" + user.username);
+                }
+              });
             } else {
               req.session.role = "caretaker";
               return res.redirect("/caretakers/" + user.username);

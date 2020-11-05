@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS petowners;
+DROP TABLE IF EXISTS caretakers;
+DROP TABLE IF EXISTS parttime;
+DROP TABLE IF EXISTS fulltime;
+DROP TABLE IF EXISTS pets;
+DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS availability;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS bids;
+DROP TABLE IF EXISTS animals;
+
 CREATE TABLE users(
     username varchar(64) PRIMARY KEY,
     password varchar(64) NOT NULL,
@@ -7,59 +19,78 @@ CREATE TABLE users(
 
 CREATE TABLE petowners(
     username varchar(64) PRIMARY KEY REFERENCES users(username),
-    address varchar(256)
+    credit_card varchar(64)
 );
 
 CREATE TABLE caretakers(
     username varchar(64) PRIMARY KEY REFERENCES users(username),
-    address varchar(256)
+    salary numeric DEFAULT 0
 );
 
 
 CREATE TABLE parttime(
     username varchar(64) PRIMARY KEY REFERENCES caretakers(username),
-    salary numeric DEFAULT 0
 );
 
 CREATE TABLE fulltime(
     username varchar(64) PRIMARY KEY REFERENCES caretakers(username),
-    salary numeric DEFAULT 3000
+);
+
+CREATE TABLE animals(
+    a_type varchar(64) PRIMARY KEY,
 );
 
 CREATE TABLE pets(
     username varchar(64) REFERENCES petowners(username)
                          ON DELETE cascade,
     name varchar(64),
-    animal_type varchar(64),
-    special_requirement varchar(256),
+    a_type varchar(64) REFERENCES animals(a_type),
     PRIMARY KEY(username, name)
 );
 
-CREATE TABLE pcsadmin(
-    username varchar(64) PRIMARY KEY REFERENCES users(username)
+CREATE TABLE cares_for(
+    ctuname varchar(64) REFERENCES caretakers(username),
+    a_type varchar(64) REFERENCES animals(a_type),
+    a_price numeric DEFAULT 0,
+    PRIMARY KEY (ctuname, a_type)
 );
 
+
+CREATE TABLE admin(
+    username varchar(64) PRIMARY KEY REFERENCES users(username)
+);
 
 CREATE TABLE availability(
      username varchar(64) REFERENCES users(username)
                           ON DELETE cascade,
-     s_date date,
-     e_date date,
-     PRIMARY KEY (username, s_date, e_date)
+     avail_date date,
+     num_of_pets numeric DEFAULT 0, 
+     PRIMARY KEY (username, avail_date)
 );
 
-CREATE TABLE bid(
+CREATE TABLE bids(
     pouname varchar(64),
     name varchar(64),
     ctuname varchar(64),
+    price numeric NOT NULL,
+    transfer_method varchar(64),
+    is_win boolean DEFAULT FALSE,
     s_date date,
     e_date date,
-    price numeric NOT NULL,
-    rating integer CHECK ((rating IS NULL) OR (rating >= 0 AND rating <=5)),
-    review varchar(256),
-    is_win boolean DEFAULT FALSE,
     FOREIGN KEY(pouname, name) REFERENCES pets(username, name),
-    FOREIGN KEY(ctuname, s_date, e_date) REFERENCES availability(username, s_date, e_date),
+    FOREIGN KEY(ctuname) REFERENCES caretakers(username),
+    FOREIGN KEY(s_date, e_date) REFERENCES transactions(s_date, e_date),
     PRIMARY KEY(pouname, name, ctuname, s_date, e_date)
 );
+
+CREATE TABLE transactions(
+    s_date date,
+    e_date date,
+    payment_method varchar(64),
+    review varchar(256),
+    rating integer CHECK ((rating IS NULL) OR (rating >= 0 AND rating <=5)),
+    PRIMARY KEY (s_date, e_date)
+);
+
+
 
