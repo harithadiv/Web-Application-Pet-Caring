@@ -38,13 +38,19 @@ router.post("/register", antiMiddleware(), function (req, res, next) {
   } else if (role == "caretaker") {
     pool.query(sql_query.query.add_caretaker, [username]);
   }
-  res.redirect("/");
+  res.redirect("/auth/thankyou");
 });
 
 // Login
 router.get("/login", antiMiddleware(), function (req, res, next) {
   res.render("login");
 });
+
+//Registration thank you 
+router.get("/thankyou", antiMiddleware(), function (req, res, next) {
+  res.render("thankyou");
+});
+
 
 router.post("/login", antiMiddleware(), function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
