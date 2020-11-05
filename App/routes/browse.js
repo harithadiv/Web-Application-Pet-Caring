@@ -3,13 +3,16 @@ var router = express.Router();
 const sql_query = require("../sql");
 
 const { Pool } = require("pg");
+const { middleware } = require("../auth");
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-router.get("/", function (req, res, next) {
+router.get("/", middleware(), function (req, res, next) {
   pool.query(sql_query.query.browse, [], (err, data) => {
-    res.render("browse", { avails: data.rows });
+    console.log(data.rows);
+    var username = req.session.passport.user;
+    res.render("browse", { avails: data.rows, username: username });
   });
 });
 

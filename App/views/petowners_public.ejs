@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Caretaker Profile</title>
+  <title>Pet Owner Profile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
@@ -45,21 +45,21 @@
     }
 
     .btn-primary {
-      background-color: #e9bbb5;
-      border-color: #e9bbb5;
+      background-color: #8da47e;
+      border-color: #8da47e;
     }
 
     .btn-default {
-      border-color: #e9bbb5;
+      border-color: #8da47e;
     }
 
     .btn:hover {
-      background-color: #E17A6C;
-      border-color: #E17A6C;
+      background-color: #466630;
+      border-color: #466630;
     }
 
     .fa-check {
-      color: #e9bbb5;
+      color: #8da47e;
     }
   </style>
 </head>
@@ -91,89 +91,71 @@
   <div class="container bootdey flex-grow-1 container-p-y">
 
     <div class="media align-items-center py-3 mb-3">
-      <img src="/images/girl.jpg" alt="" class="d-block ui-w-100 rounded-circle">
+      <img src="/images/girl2.jpg" alt="" class="d-block ui-w-100 rounded-circle">
       <div class="media-body ml-4">
         <h4 class="font-weight-bold mb-0"><%= firstName + " " + lastName%></h4>
-        <a href="/auth/logout" class="btn btn-primary btn-sm">Logout</a>&nbsp;
-
       </div>
     </div>
+
 
     <div class="card mb-4">
       <div class="card-body">
         <table class="table user-view-table m-0">
           <tbody>
             <tr>
-              <td>Username:</td>
-              <td><%= userName%></td>
+              <td>Registered:</td>
+              <td>25/11/2019</td>
             </tr>
             <tr>
-              <td>Registered:</td>
-              <td>01/01/2017</td>
+              <td>Username:</td>
+              <td><%= username %></td>
             </tr>
             <tr>
               <td>Role:</td>
-              <td>Full-Time Caretaker</td>
+              <td>Pet Owner</td>
             </tr>
             <tr>
-              <td>Status:</td>
-              <td>Active</td>
-            </tr>
-            <tr>
-              <td>Animals:</td>
-              <td>Dogs, Rabbits, Cats</td>
+              <td>Address:</td>
+              <td>15 Hawthorn Lane</td>
             </tr>
           </tbody>
         </table>
       </div>
-
     </div>
 
+    <h2>Pets</h2>
+
+    <% if (pets.length > 0) { %>
     <div class="card mb-4">
-      <div class="row no-gutters row-bordered">
-        <div class="d-flex col-md align-items-center">
-          <a href="javascript:void(0)" class="card-body d-block text-body">
-            <div class="text-muted small line-height-1">Average Rating</div>
-            <div class="text-xlarge">4.5</div>
-          </a>
-        </div>
-        <div class="d-flex col-md align-items-center">
-          <a href="javascript:void(0)" class="card-body d-block text-body">
-            <div class="text-muted small line-height-1">Pet Day</div>
-            <div class="text-xlarge">100</div>
-          </a>
-        </div>
-        <div class="d-flex col-md align-items-center">
-          <a href="javascript:void(0)" class="card-body d-block text-body">
-            <div class="text-muted small line-height-1">Salary</div>
-            <div class="text-xlarge">3000</div>
-          </a>
-        </div>
-      </div>
-      <hr class="border-light m-0">
       <div class="table-responsive">
         <table class="table card-table m-0">
           <tbody>
             <tr>
-              <th>Availability</th>
-              <th>Booked</th>
+              <th>Name</th>
+              <th>Animal Type</th>
+              <th>Special Requirement</th>
             </tr>
+            <% for(var i=0; i < pets.length; i++) { %>
             <tr>
-              <td>01/01/2020</td>
-              <td><span class="fa fa-check"></span></td>
+              <td><%= pets[i].name %></td>
+              <td><%= pets[i].animal_type %></td>
+              <td><%= pets[i].special_requirement %></td>
             </tr>
-            <tr>
-              <td>02/01/2020</td>
-              <td><span class="fa fa-check"></span></td>
-            </tr>
-            <tr>
-              <td>03/01/2002</td>
-              <td><span class="fa fa-times text-light"></span></td>
-            </tr>
+            <% } %>
           </tbody>
         </table>
       </div>
     </div>
+    <% } else { %>
+    <div class="card">
+      <div class="card-body">
+        You have no pets.
+      </div>
+    </div>
+    <% } %>
+
+
+    <a href="/bid" class="btn btn-primary btn-sm">Place Bid</a>&nbsp;
 
   </div>
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>

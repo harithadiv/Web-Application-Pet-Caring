@@ -1,5 +1,3 @@
-<!-- <h1><%= firstName + " " + lastName%></h1> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,14 +40,13 @@
       <img src="/images/girl2.jpg" alt="" class="d-block ui-w-100 rounded-circle">
       <div class="media-body ml-4">
         <h4 class="font-weight-bold mb-0"><%= firstName + " " + lastName%></h4>
-        <a href="javascript:void(0)" class="btn btn-primary btn-md">Edit</a>&nbsp;
-        <a href="javascript:void(0)" class="btn btn-default btn-md">Profile</a>&nbsp;
         <a href="/browse" class="btn btn-primary btn-md">Browse for Caretakers</a>&nbsp;
         <a href="/add_pet" class="btn btn-primary btn-md">Add pet</a>&nbsp;
-
+        <a href="/auth/logout" class="btn btn-primary btn-md">Logout</a>&nbsp;
+        <a href=<%= "/pets/"+username+"/test_petname" %> class="btn btn-default btn-md">Go to pets page (remove
+          later)</a>&nbsp;
       </div>
     </div>
-
 
     <div class="card mb-4">
       <div class="card-body">
@@ -70,10 +67,6 @@
             <tr>
               <td>Address:</td>
               <td>15 Hawthorn Lane</td>
-            </tr>
-            <tr>
-              <td>Pets:</td>
-              <td>Max, Snowball, Mr. Meowgi</td>
             </tr>
           </tbody>
         </table>

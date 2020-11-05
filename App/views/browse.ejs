@@ -1,18 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Browse</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/custom_style.css">
+  <meta charset="UTF-8">
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link rel='stylesheet' href='/css/bootstrap.min.css' />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+  <!-- Custom styles for this template -->
+  <link rel='stylesheet' href='/stylesheets/browse.css' />
 </head>
 
-<body>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-
+<body class="text-center">
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
     <a class="navbar-brand" href="/">PCS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -25,80 +29,97 @@
           <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/logout">Logout</a>
+          <a class="nav-link" href="/petowners/<%= username %>">Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">About us</a>
+        </li>
+        <li class="nav-item logout-btn">
+          <a class="nav-link" href="/auth/logout">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <div class="container">
-    <h2>Browse...</h2>
-
-    <div class="card">
-      <div class="card-body">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-            Animal Type
-          </button>
+  <div class="top-word">
+    <h1>Browse</h1>
+  </div>
+  <div class="search-box col-md-5 text-center">
+    <form action="">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Pet Type</button>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Cat</a>
             <a class="dropdown-item" href="#">Dog</a>
-            <a class="dropdown-item" href="#">Rabbit</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Others</a>
+            <a class="dropdown-item" href="#">Puppy</a>
+            <a class="dropdown-item" href="#">Cat</a>
+            <a class="dropdown-item" href="#">Kitten</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated Category</a>
           </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Search input with dropdown button">
+        <div class="input-group-append">
+          <button class="btn btn-success" type="button">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="main-box clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+              <thead>
+                <tr>
+                  <th><span>Name</span></th>
+                  <th><span>Member since</span></th>
+                  <th class="text-center"><span>Status</span></th>
+                  <th><span>Available Date</span></th>
+                  <th><span>Daily Price</span></th>
+                  <th><span>Place bid</span></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <% for (var i=0; i < avails.length; i++) { %>
+                <tr>
+                  <td>
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <a href="/browse/<%= avails[i].username %>"
+                      class="user-link"><%= avails[i].first_name+' '+avails[i].last_name %></a>
+                    <span class="user-subhead">Caretaker</span>
+                  </td>
+                  <td>
+                    2013/08/08
+                  </td>
+                  <td class="text-center">
+                    <span class="label label-default">Active</span>
+                  </td>
+                  <td><%= avails[i].s_date.toISOString().slice(0,10) %> to
+                    <%= avails[i].e_date.toISOString().slice(0,10) %></td>
+                  <td>-</td>
+                  <td style="width: 20%;">
+                    <a href="/bid" class="table-link">
+                      <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-gavel fa-stack-1x fa-inverse" rel="popover" title="Bid"></i>
+                      </span>
+                    </a>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
     </div>
-
-
-    <div class="card mb-4">
-      <div class="table-responsive">
-        <table class="table card-table m-0">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Bid</th>
-            </tr>
-            <% for (var i=0; i < avails.length; i++) { %>
-            <tr>
-              <td>
-                <a href="/browse/<%= avails[i].username %>">
-                  <%= avails[i].first_name+' '+avails[i].last_name %>
-                </a>
-              </td>
-              <td><%= avails[i].s_date %></td>
-              <td><%= avails[i].e_date %></td>
-              <td>
-                <a href="/bid" class="btn btn-primary btn-sm">
-                  Place Bid
-                </a>&nbsp;
-              </td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
-
-  <!-- JQuery, Popper, JS Plugins -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-
 </body>
 
 </html>
