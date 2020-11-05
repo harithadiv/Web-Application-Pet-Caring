@@ -6,6 +6,7 @@ sql.query = {
     "INSERT INTO users (username, password, first_name, last_name) VALUES ($1,$2,$3,$4)",
   add_petowner: "INSERT INTO petowners (username) VALUES ($1)",
   add_caretaker: "INSERT INTO caretakers (username) VALUES ($1)",
+  add_admin: "INSERT INTO admin (username) VALUES ($1)",
   // login
   get_user: "SELECT * FROM users WHERE username=$1",
 
@@ -20,8 +21,12 @@ sql.query = {
   // caretakers
   get_caretaker: "SELECT * FROM caretakers WHERE username=$1",
 
-  browse: "SELECT * FROM availability JOIN users ON availability.username=users.username",
-  
+  // admin
+  get_admin: "SELECT * FROM admin WHERE username=$1",
+
+  browse:
+    "SELECT * FROM availability JOIN users ON availability.username=users.username",
+
   // register
   add_bid:
     "INSERT INTO bid (pouname, ctuname, name, s_date, e_date, price) VALUES ($1,$2,$3,$4,$5,$6)",
