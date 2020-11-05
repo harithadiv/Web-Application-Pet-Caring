@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Bid</title>
+  <title>Browse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/custom_style.css">
 </head>
 
-<body class="text-center">
+<body>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
@@ -25,10 +25,7 @@
           <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Login</a>
+          <a class="nav-link" href="/auth/logout">Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">About us</a>
@@ -37,46 +34,60 @@
     </div>
   </nav>
 
-  <div class="container bootdey flex-grow-1 container-p-y">
+  <div class="container">
+    <h2>Browse...</h2>
 
-    <div class="card mb-4">
-      <form action="/bid" method="post">
-        <input type="hidden" id="pousername" name="pousername" value=<%= username %>>
-        <img class="mb-4 image" src="/images/bid.jpg" alt="" width="250" height="150">
-        <h1 class="h3 mb-3 font-weight-normal">Bid for caretaker</h1>
-        <div class="block">
-          <label for="startDate">Start Date</label>
-          <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
-          <br>
+    <div class="card">
+      <div class="card-body">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Animal Type
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Cat</a>
+            <a class="dropdown-item" href="#">Dog</a>
+            <a class="dropdown-item" href="#">Rabbit</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Others</a>
+          </div>
         </div>
-        <div class="block">
-          <label for="endDate">End Date</label>
-          <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
-          <br>
-        </div>
-        <div class="block">
-          <label for="caretakerUsername">Caretaker username</label>
-          <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
-          <br>
-        </div>
-        <div class="block">
-          <label for="petname">Pet Name</label>
-          <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
-          <br>
-        </div>
-        <div class="block">
-          <label for="biddingAmount">Bidding amount</label>
-          <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
-          <br>
-        </div>
-
-        <button type="submit">Bid</button>
-
-        <p class="mt-5 mb-3 text-muted">&copy; PCS 2020</p>
-      </form>
+      </div>
     </div>
 
+
+    <div class="card mb-4">
+      <div class="table-responsive">
+        <table class="table card-table m-0">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Bid</th>
+            </tr>
+            <% for (var i=0; i < avails.length; i++) { %>
+            <tr>
+              <td>
+                <a href="/browse/<%= avails[i].username %>">
+                  <%= avails[i].first_name+' '+avails[i].last_name %>
+                </a>
+              </td>
+              <td><%= avails[i].s_date %></td>
+              <td><%= avails[i].e_date %></td>
+              <td>
+                <a href="/bid" class="btn btn-primary btn-sm">
+                  Place Bid
+                </a>&nbsp;
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+
   <!-- JQuery, Popper, JS Plugins -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -88,7 +99,6 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
-  </script>
 </body>
 
 </html>

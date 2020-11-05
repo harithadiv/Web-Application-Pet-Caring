@@ -19,6 +19,7 @@ sql.query = {
 
   // caretakers
   get_caretaker: "SELECT * FROM caretakers WHERE username=$1",
+  get_browsed_caretaker: "SELECT * FROM caretakers NATURAL JOIN users WHERE username=$1",
 
   browse: "SELECT * FROM availability JOIN users ON availability.username=users.username",
   

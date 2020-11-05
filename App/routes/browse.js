@@ -9,8 +9,20 @@ const pool = new Pool({
 
 router.get("/", function (req, res, next) {
   pool.query(sql_query.query.browse, [], (err, data) => {
-    console.log(data.rows);
     res.render("browse", { avails: data.rows });
+  });
+});
+
+router.get("/:id", function (req, res, next) {
+  console.log(req.params.id);
+  pool.query(sql_query.query.get_browsed_caretaker, [req.params.id], (err, data) => {
+    console.log(data);
+    res.render("browsed_caretaker", {
+      username: data.rows[0].username,
+      address: data.rows[0].address,
+      first_name: data.rows[0].first_name,
+      last_name: data.rows[0].last_name
+     })
   });
 });
 

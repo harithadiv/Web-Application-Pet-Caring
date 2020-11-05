@@ -3,14 +3,15 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Bid</title>
+  <title>Caretaker Profile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/custom_style.css">
+  </style>
 </head>
 
-<body class="text-center">
+<body>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
@@ -25,10 +26,7 @@
           <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Login</a>
+          <a class="nav-link" href="/auth/logout">Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">About us</a>
@@ -38,45 +36,66 @@
   </nav>
 
   <div class="container bootdey flex-grow-1 container-p-y">
-
-    <div class="card mb-4">
-      <form action="/bid" method="post">
-        <input type="hidden" id="pousername" name="pousername" value=<%= username %>>
-        <img class="mb-4 image" src="/images/bid.jpg" alt="" width="250" height="150">
-        <h1 class="h3 mb-3 font-weight-normal">Bid for caretaker</h1>
-        <div class="block">
-          <label for="startDate">Start Date</label>
-          <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
-          <br>
-        </div>
-        <div class="block">
-          <label for="endDate">End Date</label>
-          <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
-          <br>
-        </div>
-        <div class="block">
-          <label for="caretakerUsername">Caretaker username</label>
-          <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
-          <br>
-        </div>
-        <div class="block">
-          <label for="petname">Pet Name</label>
-          <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
-          <br>
-        </div>
-        <div class="block">
-          <label for="biddingAmount">Bidding amount</label>
-          <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
-          <br>
-        </div>
-
-        <button type="submit">Bid</button>
-
-        <p class="mt-5 mb-3 text-muted">&copy; PCS 2020</p>
-      </form>
+    <div class="media align-items-center py-3 mb-3">
+      <img src="/images/girl.jpg" alt="" class="d-block ui-w-100 rounded-circle">
+      <div class="media-body ml-4">
+        <h4 class="font-weight-bold mb-0"><%= first_name + " " + last_name %></h4>
+        <a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a>&nbsp;
+        <a href="javascript:void(0)" class="btn btn-default btn-sm">Profile</a>&nbsp;
+      </div>
     </div>
 
+    <div class="card mb-4">
+      <div class="card-body">
+        <table class="table user-view-table m-0">
+          <tbody>
+            <tr>
+              <td>Status:</td>
+              <td>Active</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="card mb-4">
+      <hr class="border-light m-0">
+
+      <div class="table-responsive">
+        <table class="table card-table m-0">
+          <tbody>
+            <tr>
+              <th>Availability</th>
+              <th>Booked</th>
+            </tr>
+            <tr>
+              <td>01/01/2020</td>
+              <td><span class="fa fa-check"></span></td>
+            </tr>
+            <tr>
+              <td>02/01/2020</td>
+              <td><span class="fa fa-check"></span></td>
+            </tr>
+            <tr>
+              <td>03/01/2002</td>
+              <td><span class="fa fa-times text-light"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h4>Current Pets:</h4>
+      </div>
+    </div>
+
+
+
   </div>
+
   <!-- JQuery, Popper, JS Plugins -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
