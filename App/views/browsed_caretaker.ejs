@@ -3,11 +3,12 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Pet Owner Profile</title>
+  <title>Caretaker Profile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/custom_style.css">
+  </style>
 </head>
 
 <body>
@@ -35,16 +36,12 @@
   </nav>
 
   <div class="container bootdey flex-grow-1 container-p-y">
-
     <div class="media align-items-center py-3 mb-3">
-      <img src="/images/girl2.jpg" alt="" class="d-block ui-w-100 rounded-circle">
+      <img src="/images/girl.jpg" alt="" class="d-block ui-w-100 rounded-circle">
       <div class="media-body ml-4">
-        <h4 class="font-weight-bold mb-0"><%= firstName + " " + lastName%></h4>
-        <a href="/browse" class="btn btn-primary btn-md">Browse for Caretakers</a>&nbsp;
-        <a href="/add_pet" class="btn btn-primary btn-md">Add pet</a>&nbsp;
-        <a href="/auth/logout" class="btn btn-primary btn-md">Logout</a>&nbsp;
-        <a href=<%= "/pets/"+username+"/test_petname" %> class="btn btn-default btn-md">Go to pets page (remove
-          later)</a>&nbsp;
+        <h4 class="font-weight-bold mb-0"><%= first_name + " " + last_name %></h4>
+        <a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a>&nbsp;
+        <a href="javascript:void(0)" class="btn btn-default btn-sm">Profile</a>&nbsp;
       </div>
     </div>
 
@@ -53,86 +50,52 @@
         <table class="table user-view-table m-0">
           <tbody>
             <tr>
-              <td>Registered:</td>
-              <td>25/11/2019</td>
-            </tr>
-            <tr>
-              <td>Username:</td>
-              <td><%= username %></td>
-            </tr>
-            <tr>
-              <td>Role:</td>
-              <td>Pet Owner</td>
-            </tr>
-            <tr>
-              <td>Address:</td>
-              <td>15 Hawthorn Lane</td>
+              <td>Status:</td>
+              <td>Active</td>
             </tr>
           </tbody>
         </table>
       </div>
+
     </div>
 
     <div class="card mb-4">
+      <hr class="border-light m-0">
+
       <div class="table-responsive">
         <table class="table card-table m-0">
           <tbody>
             <tr>
-              <th></th>
-              <th>Status</th>
+              <th>Availability</th>
+              <th>Booked</th>
             </tr>
             <tr>
-              <td>Lucie Rodgers (01/01/2020)</td>
-              <td>Accepted</td>
+              <td>01/01/2020</td>
+              <td><span class="fa fa-check"></span></td>
             </tr>
             <tr>
-              <td>Mohsin Weeks (02/01/2020-05/01/2020)</td>
-              <td>Pending</td>
+              <td>02/01/2020</td>
+              <td><span class="fa fa-check"></span></td>
             </tr>
             <tr>
-              <td>Bailey Bevan (03/01/2002)</td>
-              <td>Rejected</td>
+              <td>03/01/2002</td>
+              <td><span class="fa fa-times text-light"></span></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h2>Pets</h2>
-
-    <% if (pets.length > 0) { %>
-    <div class="card mb-4">
-      <div class="table-responsive">
-        <table class="table card-table m-0">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Animal Type</th>
-              <th>Special Requirement</th>
-            </tr>
-            <% for(var i=0; i < pets.length; i++) { %>
-            <tr>
-              <td><%= pets[i].name %></td>
-              <td><%= pets[i].animal_type %></td>
-              <td><%= pets[i].special_requirement %></td>
-            </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <% } else { %>
     <div class="card">
       <div class="card-body">
-        You have no pets.
+        <h4>Current Pets:</h4>
       </div>
     </div>
-    <% } %>
 
 
-    <a href="/bid" class="btn btn-primary btn-sm">Place Bid</a>&nbsp;
 
   </div>
+
   <!-- JQuery, Popper, JS Plugins -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

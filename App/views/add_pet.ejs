@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Bid</title>
+  <title>Browse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/custom_style.css">
 </head>
 
-<body class="text-center">
+<body>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
@@ -25,10 +25,7 @@
           <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Login</a>
+          <a class="nav-link" href="/auth/logout">Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/">About us</a>
@@ -37,46 +34,26 @@
     </div>
   </nav>
 
-  <div class="container bootdey flex-grow-1 container-p-y">
+  <div class="container">
+    <h2>Add pet</h2>
 
-    <div class="card mb-4">
-      <form action="/bid" method="post">
-        <input type="hidden" id="pousername" name="pousername" value=<%= username %>>
-        <img class="mb-4 image" src="/images/bid.jpg" alt="" width="250" height="150">
-        <h1 class="h3 mb-3 font-weight-normal">Bid for caretaker</h1>
-        <div class="block">
-          <label for="startDate">Start Date</label>
-          <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
-          <br>
-        </div>
-        <div class="block">
-          <label for="endDate">End Date</label>
-          <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
-          <br>
-        </div>
-        <div class="block">
-          <label for="caretakerUsername">Caretaker username</label>
-          <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
-          <br>
-        </div>
-        <div class="block">
-          <label for="petname">Pet Name</label>
-          <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
-          <br>
-        </div>
-        <div class="block">
-          <label for="biddingAmount">Bidding amount</label>
-          <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
-          <br>
-        </div>
-
-        <button type="submit">Bid</button>
-
-        <p class="mt-5 mb-3 text-muted">&copy; PCS 2020</p>
-      </form>
-    </div>
-
+    <form action="/add_pet" method="post">
+      <div class="form-group">
+        <label for="inputName">Pet name</label>
+        <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Charlie">
+      </div>
+      <div class="form-group">
+        <label for="inputAnimalType">Animal Type</label>
+        <input type="text" class="form-control" id="inputAnimalType" name="inputAnimalType" placeholder="Dog">
+      </div>
+      <div class="form-group">
+        <label for="inputSpecialRequirement">Special Requirement</label>
+        <input type="text" class="form-control" id="inputSpecialRequirement" name="inputSpecialRequirement" placeholder="Likes pork rib.">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
   </div>
+
   <!-- JQuery, Popper, JS Plugins -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -88,7 +65,6 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
-  </script>
 </body>
 
 </html>

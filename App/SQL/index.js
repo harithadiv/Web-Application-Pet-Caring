@@ -20,12 +20,15 @@ sql.query = {
 
   // caretakers
   get_caretaker: "SELECT * FROM caretakers WHERE username=$1",
+  get_browsed_caretaker: "SELECT * FROM caretakers NATURAL JOIN users WHERE username=$1",
+
+  browse: "SELECT * FROM availability JOIN users ON availability.username=users.username",
+  
+  // insert pet
+  insert_pet: "INSERT INTO pets VALUES ($1, $2, $3, $4)",
 
   // admin
   get_admin: "SELECT * FROM admin WHERE username=$1",
-
-  browse:
-    "SELECT * FROM availability JOIN users ON availability.username=users.username",
 
   // register
   add_bid:
