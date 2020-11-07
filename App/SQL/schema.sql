@@ -132,8 +132,8 @@ INSERT INTO pets (username, name, a_type) VALUES ('max', 'garfield', 'cat');
 
 
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('bob', '2021-05-23', 0);
-INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('bob', '2021-05-24', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('bob', '2021-05-25', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('bob', '2021-05-24', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('bob', '2021-06-23', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('bob', '2021-07-21', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('a', '2021-05-23', 0);
