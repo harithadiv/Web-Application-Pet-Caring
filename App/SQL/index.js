@@ -32,7 +32,7 @@ sql.query = {
 
   // register
   add_bid:
-    "INSERT INTO bid (pouname, ctuname, name, s_date, e_date, price) VALUES ($1,$2,$3,$4,$5,$6)",
+    "INSERT INTO bids (pouname, ctuname, name, s_date, e_date, price) VALUES ($1,$2,$3,$4,$5,$6)",
 
   // admin queries
   get_num_of_pets_within_month:
