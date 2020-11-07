@@ -27,7 +27,7 @@ CREATE TABLE petowners(
 CREATE TABLE caretakers(
     username varchar(64) PRIMARY KEY REFERENCES users(username),
     salary numeric DEFAULT 0,
-    max_pets numeric 
+    max_pets numeric DEFAULT 5
 );
 
 
@@ -121,7 +121,7 @@ INSERT INTO caretakers (username, salary) VALUES ('a', 3000);
 INSERT INTO fulltime (username) VALUES ('a');
 INSERT INTO users (username, password, first_name, last_name) VALUES ('b', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Ranna', 'Vaughton');
 INSERT INTO caretakers (username, salary) VALUES ('b', 3000);
-INSERT INTO fulltime (username) VALUES ('Marielle');
+INSERT INTO fulltime (username) VALUES ('b');
 INSERT INTO users (username, password, first_name, last_name) VALUES ('c', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Woody', 'Gayne');
 INSERT INTO caretakers (username, salary) VALUES ('c', 3000);
 INSERT INTO fulltime (username) VALUES ('c');
@@ -219,3 +219,15 @@ END IF;
 END;
 $$
 LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION remove_availability()
+RETURNS trigger AS
+$t$ BEGIN DELETE FROM availability WHERE availability.avail_date = new.avail_date AND availability.username = new.username; RETURN NULL; END; $t$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER is_full
+AFTER UPDATE
+ON availability
+FOR EACH ROW
+WHEN (NEW.num_of_pets = old.max_pets)
+EXECUTE PROCEDURE remove_availability();
