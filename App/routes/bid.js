@@ -15,10 +15,12 @@ const pool = new Pool({
 router.get("/", function (req, res, next) {
     console.log("##############################################Username here#######################################");
     console.log(req.user.username);
+    console.log(req);
     res.render("bid", {username: req.user.username});
 });
-  
+
 router.post("/", function (req, res, next) {
+    console.log(req);
     var amount = req.body.amount;
     var pousername = req.body.pousername;
     var petname = req.body.petname;

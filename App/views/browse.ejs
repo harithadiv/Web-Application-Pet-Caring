@@ -103,11 +103,42 @@
                     <%= avails[i].e_date.toISOString().slice(0,10) %></td>
                   <td>$100</td>
                   <td style="width: 20%;">
-                    <a href="/bid" class="table-link">
-                      <span class="fa-stack">
-                        <i class="fa fa-square fa-stack-2x"></i>
-                        <i class="fa fa-gavel fa-stack-1x fa-inverse" rel="popover" title="Bid"></i>
-                      </span>
+                    <button class="open-button" onclick="openBid()">Place Bid</button>
+
+                    <div class="form-popup" id="myForm">
+                      <form class="form-container" action="/bid"  method="post"> 
+                        <h1>Place Bid</h1>
+                        <input type="hidden" id="pousername" name="pousername" value=<%= username %>>
+                        <input type="hidden" id="startDate" name="startDate" value=<%= avails[i].s_date.toISOString().slice(0,10)%>> 
+                        <input type="hidden" id="endDate" name="endDate" value = <%= avails[i].e_date.toISOString().slice(0,10) %>>
+                        <input type="hidden" id="username" name="username" value=<%= avails[i].username %>>
+                        <label for="bid amount"><b>Amount</b></label>
+                        <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
+                    
+                        <label for="pet name"><b>Pet Name</b></label>
+                        <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
+
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
+
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
+                    
+                        <button type="submit" class="btn">Confirm Bid</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                      </form>
+                    </div>                    
+
+                    <script>
+                      function openBid() {
+                        document.getElementById("myForm").style.display = "block";
+                      }
+                      
+                      function closeForm() {
+                        document.getElementById("myForm").style.display = "none";
+                      }
+                      </script>
+
                     </a>
                   </td>
                 </tr>
