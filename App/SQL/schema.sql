@@ -157,14 +157,3 @@ INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-24', '2021-05-25');
 INSERT INTO bids (pouname, name, ctuname, price, transfer_method, is_win, s_date, e_date) VALUES ('alice', 'tom', 'bob', 20, NULL, TRUE, '2021-05-23', '2021-05-25');
 INSERT INTO bids (pouname, name, ctuname, price, transfer_method, is_win, s_date, e_date) VALUES ('alice', 'tom', 'a', 20, NULL, TRUE, '2021-05-23', '2021-05-25');
 INSERT INTO bids (pouname, name, ctuname, price, transfer_method, is_win, s_date, e_date) VALUES ('alice', 'tom', 'b', 20, NULL, TRUE, '2021-05-23', '2021-05-25');
-
-
-
-SELECT username, first_name, last_name, s_date, e_date FROM (
-  SELECT t.username, min(t.avail_date) as s_date, max(t.avail_date) as e_date
-    FROM 
-      (SELECT b.avail_date, b.username,
-        b.avail_date + (interval '1 day' * -row_number() over (PARTITION BY b.username ORDER BY b.avail_date)) as i
-        FROM (SELECT * FROM availability NATURAL JOIN caretakers) b) t
-  GROUP BY t.username, i ORDER BY t.username, s_date) av
-  NATURAL JOIN users
