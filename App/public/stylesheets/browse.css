@@ -4,10 +4,48 @@ body {
   }
 
 .top-word h1{
-    padding-top: 20px;
+	padding-top: 20px;
+	color: #2B594E;
+}
+
+.btn-success {
+	background-color: #aad9cd;
+	border-color: #aad9cd;
+	color: #2B594E;
+}
+
+.btn-light {
+	color: #2B594E;
+}
+
+.dropdown-menu {
+	background-color: #A9D9CD;
+}
+
+.user-link {
+	color: #2B594E;
+}
+
+.fa-stack {
+	color: #aad9cd;
 }
 
 /* USER LIST TABLE */
+.table>tbody>tr>td,
+.table>tbody>tr>th {
+  border-top: none;
+}
+
+.table {
+	column-gap: 0cm;
+	row-gap: 0cm;
+}
+
+.user-list {
+	padding: 0%;
+	margin: 0pt;
+}
+
 .user-list tbody td > img {
     position: relative;
 	max-width: 50px;
@@ -185,6 +223,8 @@ body {
 .search-box .btn-light {
     border: 1px solid #ced4da;
 }
+
+
 
 i.fa {
 	display: inline-block;

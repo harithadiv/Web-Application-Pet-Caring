@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS bid_dates CASCADE;
 DROP TABLE IF EXISTS bids CASCADE;
 DROP TABLE IF EXISTS animals CASCADE;
 DROP TABLE IF EXISTS cares_for CASCADE;
+DROP TABLE IF EXISTS takes_leave CASCADE;
 
 CREATE TABLE users(
     username varchar(64) PRIMARY KEY,
@@ -25,7 +26,8 @@ CREATE TABLE petowners(
 
 CREATE TABLE caretakers(
     username varchar(64) PRIMARY KEY REFERENCES users(username),
-    salary numeric DEFAULT 0
+    salary numeric DEFAULT 0,
+    max_pets numeric 
 );
 
 
@@ -94,29 +96,36 @@ CREATE TABLE bids(
     PRIMARY KEY(pouname, name, ctuname, s_date, e_date)
 );
 
+CREATE TABLE takes_leave(
+    ctuname varchar(64) REFERENCES caretakers(username),
+    s_date date, 
+    e_date date,
+    PRIMARY KEY(ctuname, s_date, e_date)
+);
+
 
 INSERT INTO users (username, password, first_name, last_name) VALUES ('admin', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
 INSERT INTO admin (username) VALUES ('admin');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('alice', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('alice', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Alice', 'E');
 INSERT INTO petowners (username) VALUES ('alice');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('bob', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('bob', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Bob', 'Dylan');
 INSERT INTO caretakers (username, salary) VALUES ('bob', 3000);
 INSERT INTO fulltime (username) VALUES ('bob');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('cindy', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('cindy', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Cindy', 'Vi');
 INSERT INTO caretakers (username, salary) VALUES ('cindy', 2000);
 INSERT INTO parttime (username) VALUES ('cindy');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('max', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('max', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Max', 'Adam');
 INSERT INTO petowners (username) VALUES ('max');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('a', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('a', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Ava', 'Clement');
 INSERT INTO caretakers (username, salary) VALUES ('a', 3000);
 INSERT INTO fulltime (username) VALUES ('a');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('b', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('b', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Ranna', 'Vaughton');
 INSERT INTO caretakers (username, salary) VALUES ('b', 3000);
-INSERT INTO fulltime (username) VALUES ('b');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('c', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO fulltime (username) VALUES ('Marielle');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('c', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Woody', 'Gayne');
 INSERT INTO caretakers (username, salary) VALUES ('c', 3000);
 INSERT INTO fulltime (username) VALUES ('c');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('d', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('d', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Ranique', 'Pan');
 INSERT INTO caretakers (username, salary) VALUES ('d', 3000);
 INSERT INTO fulltime (username) VALUES ('d');
 
@@ -146,6 +155,8 @@ INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('c', '2021-
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('d', '2021-05-25', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('a', '2021-05-25', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('b', '2021-05-25', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('c', '2021-05-26', 0);
+
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('bob', 'cat', 12);
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('a', 'cat', 12);
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('a', 'mouse', 12);
@@ -153,15 +164,58 @@ INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('b', 'cat', 12);
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('b', 'mouse', 12);
 INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-23', '2021-05-25');
 INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-24', '2021-05-25');
-
-INSERT INTO bids (pouname, name, ctuname, price, transfer_method, is_win, s_date, e_date) VALUES ('alice', 'tom', 'bob', 20, NULL, TRUE, '2021-05-23', '2021-05-25');
-INSERT INTO bids (pouname, name, ctuname, price, transfer_method, is_win, s_date, e_date) VALUES ('alice', 'tom', 'a', 20, NULL, TRUE, '2021-05-23', '2021-05-25');
-INSERT INTO bids (pouname, name, ctuname, price, transfer_method, is_win, s_date, e_date) VALUES ('alice', 'tom', 'b', 20, NULL, TRUE, '2021-05-23', '2021-05-25');
-
+INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-26', '2021-05-26');
+INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-23', '2021-05-24');
+INSERT INTO bid_dates (s_date, e_date) VALUES ('2020-11-06', '2020-11-07');
 
 
 
+INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('alice', 'tom', 'bob', 20, NULL, '2021-05-23', '2021-05-25');
+INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('alice', 'tom', 'a', 20, NULL, '2021-05-23', '2021-05-25');
+INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('alice', 'tom', 'b', 20, NULL, '2021-05-23', '2021-05-25');
+INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('alice', 'tom', 'c', 20, NULL, '2021-05-26', '2021-05-26');
+INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('max', 'mickey', 'b', 20, NULL, '2021-05-23', '2021-05-24');
+INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('max', 'garfield', 'a', 20, NULL, '2020-11-06', '2020-11-07');
 
 
+CREATE TRIGGER is_win_update
+AFTER UPDATE
+ON bids
+FOR EACH ROW
+WHEN (NEW.is_win = TRUE)
+EXECUTE PROCEDURE update_avail_pets();
+ 
+CREATE OR REPLACE FUNCTION update_avail_pets()
+RETURNS trigger AS
+$$
+BEGIN
+UPDATE availability 
+SET num_of_pets = num_of_pets + 1
+WHERE availability.avail_date >= NEW.s_date AND availability.avail_date <= NEW.e_date AND availability.username = new.ctuname;
+DELETE FROM bids
+WHERE bids.name = new.name AND bids.pouname = new.pouname AND is_win = FALSE AND ((bids.s_date >= new.s_date AND bids.s_date <= new.e_date)
+OR (bids.e_date >= new.s_date AND bids.e_date <= new.e_date)); 
+RETURN NEW;
+END;
+$$
+ LANGUAGE plpgsql;
 
+CREATE TRIGGER rating_update
+BEFORE UPDATE 
+ON bids
+FOR EACH ROW
+WHEN (NEW.rating IS NOT NULL)
+EXECUTE PROCEDURE check_valid_rating();
 
+CREATE OR REPLACE FUNCTION check_valid_rating() 
+RETURNS TRIGGER AS 
+$$ 
+BEGIN
+IF NOW() >= new.e_date AND new.is_win = TRUE THEN
+	RETURN NEW;
+ELSE 
+	RETURN NULL;
+END IF;
+END;
+$$
+LANGUAGE plpgsql;

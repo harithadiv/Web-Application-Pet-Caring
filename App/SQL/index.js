@@ -22,7 +22,7 @@ sql.query = {
   get_caretaker: "SELECT * FROM caretakers WHERE username=$1",
   get_browsed_caretaker: "SELECT * FROM caretakers NATURAL JOIN users WHERE username=$1",
 
-  browse: "SELECT * FROM availability JOIN users ON availability.username=users.username",
+  browse: "SELECT * FROM (SELECT t.username, min(t.avail_date) as s_date, max(t.avail_date) as e_date FROM (SELECT b.avail_date, b.username, b.avail_date + (interval '1 day' * -row_number() over (PARTITION BY b.username ORDER BY b.avail_date)) as i FROM (SELECT * FROM availability NATURAL JOIN caretakers) b) t GROUP BY t.username, i ORDER BY t.username, s_date) av NATURAL JOIN users",
   
   // insert pet
   insert_pet: "INSERT INTO pets VALUES ($1, $2, $3, $4)",
