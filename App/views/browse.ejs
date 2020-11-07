@@ -88,7 +88,6 @@
                 <% for (var i=0; i < avails.length; i++) { %>
                 <tr>
                   <td>
-                    <!-- <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""> -->
                     <img src="/images/girl2.jpg" alt="">
                     <a href="/browse/<%= avails[i].username %>"
                       class="user-link"><%= avails[i].first_name+' '+avails[i].last_name %></a>
@@ -102,7 +101,7 @@
                   </td>
                   <td><%= avails[i].s_date.toISOString().slice(0,10) %> to
                     <%= avails[i].e_date.toISOString().slice(0,10) %></td>
-                  <td>-</td>
+                  <td>$100</td>
                   <td style="width: 20%;">
                     <a href="/bid" class="table-link">
                       <span class="fa-stack">
