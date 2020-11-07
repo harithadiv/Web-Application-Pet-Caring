@@ -97,26 +97,26 @@ CREATE TABLE bids(
 
 INSERT INTO users (username, password, first_name, last_name) VALUES ('admin', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
 INSERT INTO admin (username) VALUES ('admin');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('alice', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('alice', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Alice', 'E');
 INSERT INTO petowners (username) VALUES ('alice');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('bob', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('bob', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Bob', 'Dylan');
 INSERT INTO caretakers (username, salary) VALUES ('bob', 3000);
 INSERT INTO fulltime (username) VALUES ('bob');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('cindy', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('cindy', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Cindy', 'Vi');
 INSERT INTO caretakers (username, salary) VALUES ('cindy', 2000);
 INSERT INTO parttime (username) VALUES ('cindy');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('max', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('max', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Max', 'Adam');
 INSERT INTO petowners (username) VALUES ('max');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('a', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('a', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'a', 'a');
 INSERT INTO caretakers (username, salary) VALUES ('a', 3000);
 INSERT INTO fulltime (username) VALUES ('a');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('b', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('b', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'b', 'b');
 INSERT INTO caretakers (username, salary) VALUES ('b', 3000);
 INSERT INTO fulltime (username) VALUES ('b');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('c', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('c', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'c', 'c');
 INSERT INTO caretakers (username, salary) VALUES ('c', 3000);
 INSERT INTO fulltime (username) VALUES ('c');
-INSERT INTO users (username, password, first_name, last_name) VALUES ('d', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'Admin', 'Test');
+INSERT INTO users (username, password, first_name, last_name) VALUES ('d', '$2b$10$P1VnipQ.dJ1MFjD0ZVc44esU.QRxr2uG2mrx5NFRpU3JCXiWm5uc6', 'd', 'd');
 INSERT INTO caretakers (username, salary) VALUES ('d', 3000);
 INSERT INTO fulltime (username) VALUES ('d');
 
@@ -160,8 +160,11 @@ INSERT INTO bids (pouname, name, ctuname, price, transfer_method, is_win, s_date
 
 
 
-
-
-
-
-
+SELECT username, first_name, last_name, s_date, e_date FROM (
+  SELECT t.username, min(t.avail_date) as s_date, max(t.avail_date) as e_date
+    FROM 
+      (SELECT b.avail_date, b.username,
+        b.avail_date + (interval '1 day' * -row_number() over (PARTITION BY b.username ORDER BY b.avail_date)) as i
+        FROM (SELECT * FROM availability NATURAL JOIN caretakers) b) t
+  GROUP BY t.username, i ORDER BY t.username, s_date) av
+  NATURAL JOIN users
