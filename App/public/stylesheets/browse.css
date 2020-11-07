@@ -246,10 +246,12 @@ i.fa {
   .form-popup {
 	display: none;
 	position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
+    margin-top: -450px;
+	margin-left: -50px;
+	top: calc(50%);
+	left: calc(50% - 50px);
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+	background: none;
   }
   
   /* Add styles to the form container */
