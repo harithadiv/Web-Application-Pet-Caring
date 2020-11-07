@@ -222,12 +222,11 @@ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION remove_availability()
 RETURNS trigger AS
-$t$ BEGIN DELETE FROM availability WHERE availability.avail_date = new.avail_date AND availability.username = new.username; RETURN NULL; END; $t$
+$t$ BEGIN IF new.num_of_pets IN (SELECT max_pets FROM caretaker c  WHERE c.username = new.username) THEN  DELETE FROM availability WHERE availability.avail_date = new.avail_date AND availability.username = new.username; END IF; RETURN NULL; END; $t$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER is_full
 AFTER UPDATE
 ON availability
 FOR EACH ROW
-WHEN (NEW.num_of_pets = old.max_pets)
 EXECUTE PROCEDURE remove_availability();
