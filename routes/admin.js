@@ -24,9 +24,13 @@ router.get("/:username", adminMiddleware(), function (req, res, next) {
       const numFulltime = await pool.query(sql_query.query.get_num_of_fulltime);
       const numParttime = await pool.query(sql_query.query.get_num_of_parttime);
 
+      const atypestats = await pool.query(sql_query.query.get_atype_stats);
       const firstName = data.rows[0].first_name;
       const lastName = data.rows[0].last_name;
+
       res.render("admin", {
+        atypestats: atypestats.rows,
+        atypelength: atypestats.rowCount,
         numPets: numPets,
         numFulltime: numFulltime,
         numParttime: numParttime,
