@@ -42,6 +42,16 @@ sql.query = {
 
   get_atype_stats:
     "SELECT a_type, COALESCE(pets, 0) AS pets, COALESCE(petowners, 0) AS petowners, COALESCE(caretakers,0) AS caretakers FROM (SELECT a_type, COUNT(*) AS pets FROM petsGROUP BY a_type) AS petsNATURAL LEFT JOIN(SELECT a_type, COUNT(DISTINCT(username)) AS petowners FROM petsGROUP BY a_type) AS petownersNATURAL LEFT JOIN (SELECT a_type, COUNT(DISTINCT(ctuname)) AS caretakers FROM cares_forGROUP BY a_type) AS caretakers;",
+
+  get_num_of_caretakers: "SELECT COUNT(*) FROM caretakers",
+
+  get_num_of_petowners: "SELECT COUNT(*) FROM petowners",
+
+  get_num_of_fulltime: "SELECT COUNT(*) FROM fulltime",
+
+  get_num_of_parttime: "SELECT COUNT(*) FROM parttime",
+
+  get_num_of_pets: "SELECT COUNT(*) FROM pets",
 };
 
 module.exports = sql;
