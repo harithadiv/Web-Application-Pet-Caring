@@ -94,16 +94,20 @@ router.post("/login", antiMiddleware(), function (req, res, next) {
             if (err) {
               return next(err);
             } else if (data.rows.length == 0) {
-              pool.query(sql_query.get_admin, [user.username], (err, data) => {
-                if (err) {
-                  return next(err);
-                } else if (data.rows.length == 0) {
-                  return next();
-                } else {
-                  req.session.role = "admin";
-                  return res.redirect("/admin/" + user.username);
+              pool.query(
+                sql_query.query.get_admin,
+                [user.username],
+                (err, data) => {
+                  if (err) {
+                    return next(err);
+                  } else if (data.rows.length == 0) {
+                    return next();
+                  } else {
+                    req.session.role = "admin";
+                    return res.redirect("/admin/" + user.username);
+                  }
                 }
-              });
+              );
             } else {
               req.session.role = "caretaker";
               return res.redirect("/caretakers/" + user.username);

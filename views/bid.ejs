@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Bid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/custom_style.css">
+</head>
+
+<body class="text-center">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
+    <a class="navbar-brand" href="/">PCS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">About us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container bootdey flex-grow-1 container-p-y">
+
+    <div class="card mb-4">
+      <form action="/bid" method="post">
+        <input type="hidden" id="pousername" name="pousername" value=<%= username %>>
+        <img class="mb-4 image" src="/images/bid.jpg" alt="" width="250" height="150">
+        <h1 class="h3 mb-3 font-weight-normal">Bid for caretaker</h1>
+        <div class="block">
+          <label for="startDate">Start Date</label>
+          <input type="date" id="startDate" required="required" autofocus="autofocus" name="startDate">
+          <br>
+        </div>
+        <div class="block">
+          <label for="endDate">End Date</label>
+          <input type="date" id="endDate" required="required" autofocus="autofocus" name="endDate">
+          <br>
+        </div>
+        <div class="block">
+          <label for="caretakerUsername">Caretaker username</label>
+          <input type="text" id="username" placeholder="Caretaker Username" required="required" name="username">
+          <br>
+        </div>
+        <div class="block">
+          <label for="petname">Pet Name</label>
+          <input type="text" id="petname" placeholder="Pet Name" required="required" name="petname">
+          <br>
+        </div>
+        <div class="block">
+          <label for="biddingAmount">Bidding amount</label>
+          <input type="text" id="amount" placeholder="Bidding Amount" required="required" name="amount">
+          <br>
+        </div>
+
+        <button type="submit">Bid</button>
+
+        <p class="mt-5 mb-3 text-muted">&copy; PCS 2020</p>
+      </form>
+    </div>
+
+  </div>
+  <!-- JQuery, Popper, JS Plugins -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  </script>
+</body>
+
+</html>

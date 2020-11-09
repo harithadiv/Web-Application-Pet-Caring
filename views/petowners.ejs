@@ -5,63 +5,9 @@
   <meta charset="utf-8">
   <title>Pet Owner Profile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-  <style type="text/css">
-    body {
-      margin-top: 0px;
-      background: #f5f5f5;
-    }
-
-    .ui-w-100 {
-      width: 100px !important;
-      height: auto;
-    }
-
-    .card {
-      background-clip: padding-box;
-      box-shadow: 0 1px 4px rgba(24, 28, 33, 0.012);
-    }
-
-    .user-view-table td:first-child {
-      width: 9rem;
-    }
-
-    .user-view-table td {
-      padding-right: 0;
-      padding-left: 0;
-      border: 0;
-    }
-
-    .text-light {
-      color: #babbbc !important;
-    }
-
-    .card .row-bordered>[class*=" col-"]::after {
-      border-color: rgba(24, 28, 33, 0.075);
-    }
-
-    .text-xlarge {
-      font-size: 170% !important;
-    }
-
-    .btn-primary {
-      background-color: #8da47e;
-      border-color: #8da47e;
-    }
-
-    .btn-default {
-      border-color: #8da47e;
-    }
-
-    .btn:hover {
-      background-color: #466630;
-      border-color: #466630;
-    }
-
-    .fa-check {
-      color: #8da47e;
-    }
-  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/custom_style.css">
 </head>
 
 <body>
@@ -93,14 +39,14 @@
     <div class="media align-items-center py-3 mb-3">
       <img src="/images/girl2.jpg" alt="" class="d-block ui-w-100 rounded-circle">
       <div class="media-body ml-4">
-        <h4 class="font-weight-bold mb-0">x</h4>
+        <h4 class="font-weight-bold mb-0"><%= firstName + " " + lastName%></h4>
+        <a href="/browse" class="btn btn-primary btn-md">Browse for Caretakers</a>&nbsp;
+        <a href="/add_pet" class="btn btn-primary btn-md">Add pet</a>&nbsp;
         <a href="/auth/logout" class="btn btn-primary btn-md">Logout</a>&nbsp;
-        <a href="/browse" class="btn btn-default btn-md">Browse for Caretakers</a>&nbsp;
-        <a href=<%= "/pets/"+username+"/test_petname" %> class="btn btn-default btn-md">Go to pets page (remove later) </a>&nbsp;
-
+        <a href=<%= "/pets/"+username+"/test_petname" %> class="btn btn-default btn-md">Go to pets page (remove
+          later)</a>&nbsp;
       </div>
     </div>
-
 
     <div class="card mb-4">
       <div class="card-body">
@@ -184,12 +130,19 @@
     <% } %>
 
 
-    <a href="/bid" class="btn btn-primary btn-sm">Place Bid</a>&nbsp;
+    <a href="/browse" class="btn btn-primary btn-sm">Place Bid</a>&nbsp;
 
   </div>
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
+  <!-- JQuery, Popper, JS Plugins -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
   </script>
 </body>

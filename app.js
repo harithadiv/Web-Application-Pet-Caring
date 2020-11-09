@@ -15,9 +15,11 @@ const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
 const bidRouter = require("./routes/bid");
 const browseRouter = require("./routes/browse");
+const addpetRouter = require("./routes/add_pet");
 const petownersRouter = require("./routes/petowners");
 const caretakersRouter = require("./routes/caretakers");
 const petsRouter = require("./routes/pets");
+const adminRouter = require("./routes/admin");
 
 // authentication setup
 require("./auth").init(app);
@@ -49,8 +51,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/auth", authRouter);
 app.use("/bid", bidRouter);
 app.use("/browse", browseRouter);
+app.use("/add_pet", addpetRouter);
 app.use("/petowners", petownersRouter);
 app.use("/caretakers", caretakersRouter);
+app.use("/admin", adminRouter);
 app.use("/pets", petsRouter);
 app.use("/", indexRouter);
 
