@@ -41,7 +41,7 @@ sql.query = {
     "SELECT COUNT(DISTINCT name) FROM bids WHERE is_win = TRUE AND (s_date >= '2021-05-01' AND s_date <= '2021-05-31') OR (e_date >= '2021-05-01' AND e_date <= '2021-05-31');",
 
   get_atype_stats:
-    "SELECT a_type, COALESCE(pets, 0) AS pets, COALESCE(petowners, 0) AS petowners, COALESCE(caretakers,0) AS caretakers FROM (SELECT a_type, COUNT(*) AS pets FROM petsGROUP BY a_type) AS petsNATURAL LEFT JOIN(SELECT a_type, COUNT(DISTINCT(username)) AS petowners FROM petsGROUP BY a_type) AS petownersNATURAL LEFT JOIN (SELECT a_type, COUNT(DISTINCT(ctuname)) AS caretakers FROM cares_forGROUP BY a_type) AS caretakers;",
+    "SELECT a_type, COALESCE(pets, 0) AS pets, COALESCE(petowners, 0) AS petowners, COALESCE(caretakers,0) AS caretakers FROM (SELECT a_type, COUNT(*) AS pets FROM pets GROUP BY a_type) AS pets NATURAL LEFT JOIN(SELECT a_type, COUNT(DISTINCT(username)) AS petowners FROM pets GROUP BY a_type) AS petowners NATURAL LEFT JOIN (SELECT a_type, COUNT(DISTINCT(ctuname)) AS caretakers FROM cares_for GROUP BY a_type) AS caretakers;",
 
   get_num_of_caretakers: "SELECT COUNT(*) FROM caretakers",
 
