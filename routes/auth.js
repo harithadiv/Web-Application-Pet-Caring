@@ -27,6 +27,20 @@ router.post("/register", antiMiddleware(), function (req, res, next) {
   var firstname = req.body.firstname;
   var lastname = req.body.lastname;
   var role = req.body.role;
+<<<<<<< HEAD
+  pool.query(sql_query.query.add_user, [
+    username,
+    password,
+    firstname,
+    lastname,
+  ]);
+  if (role == "petowner") {
+    pool.query(sql_query.query.add_petowner, [username]);
+  } else if (role == "caretaker") {
+    pool.query(sql_query.query.add_caretaker, [username]);
+  }
+  res.redirect("/auth/thankyou");
+=======
   pool.query(
     sql_query.query.add_user,
     [username, password, firstname, lastname],
@@ -42,12 +56,19 @@ router.post("/register", antiMiddleware(), function (req, res, next) {
       res.redirect("/");
     }
   );
+>>>>>>> e7bde3b71c69082fbf1bbff212365450572c2da4
 });
 
 // Login
 router.get("/login", antiMiddleware(), function (req, res, next) {
   res.render("login");
 });
+
+//Registration thank you 
+router.get("/thankyou", antiMiddleware(), function (req, res, next) {
+  res.render("thankyou");
+});
+
 
 router.post("/login", antiMiddleware(), function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
