@@ -100,17 +100,19 @@
               <tr>
                 <th>Animal type</th>
                 <th>Total Pets</th>
-                <th>Total Petownners</th>
+                <th>Total Petowners</th>
                 <th>Total Part-time caretakers</th>
                 <th>Total Full-time caretakers</th>
               </tr>
+              <% for (var i=0; i < atypelength; i++) { %>
               <tr>
-                <td>Lucie Rodgers (01/01/2020)</td>
-                <td>Accepted</td>
-                <td>123</td>
-                <td></td>
-                <td></td>
+                <td><%=atypestats[i].a_type%></td>
+                <td><%=atypestats[i].pets%></td>
+                <td><%=atypestats[i].petowners%></td>
+                <td><%=atypestats[i].caretakers%></td>
+                <td><%=atypestats[i].a_type%></td>
               </tr>
+              <% } %>
             </tbody>
           </table>
         </div>
