@@ -29,12 +29,12 @@ router.get("/:username", adminMiddleware(), function (req, res, next) {
       const lastName = data.rows[0].last_name;
 
       res.render("admin", {
+        numPets: numPets.rows[0].count,
+        numFulltime: numFulltime.rows[0].count,
+        numParttime: numParttime.rows[0].count,
+        numPetowners: numPetowners.rows[0].count,
         atypestats: atypestats.rows,
         atypelength: atypestats.rowCount,
-        numPets: numPets,
-        numFulltime: numFulltime,
-        numParttime: numParttime,
-        numPetowners: numPetowners,
         firstName: firstName,
         lastName: lastName,
         userName: username,
