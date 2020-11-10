@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link rel='stylesheet' href='/css/bootstrap.min.css' />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+  <!-- Custom styles for this template -->
+  <link rel='stylesheet' href='/stylesheets/browse.css' />
+</head>
+
+<body class="text-center">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #bebebe;">
+    <a class="navbar-brand" href="/">PCS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <% if (status == "petowner") { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/petowners/<%= username %>">Profile</a>
+        </li>
+        <% }%>
+        <% if (status == "caretaker") { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/caretakers/<%= username %>">Profile</a>
+            </li>
+        <% }%>
+        <li class="nav-item">
+          <a class="nav-link" href="/">About us</a>
+        </li>
+        <li class="nav-item logout-btn">
+          <a class="nav-link" href="/auth/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="top-word">
+    <h1>History</h1>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="main-box clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+                <% if (status == "petowner") { %>
+              <thead>
+                <tr>
+                  <th><span>Caretaker</span></th>
+                  <th><span>Pet</span></th>
+                  <th><span>Price</span></th>
+                  <th><span>Start date</span></th>
+                  <th><span>End date</span></th>
+                  <th><span>Status</span></th>
+                </tr>
+              </thead>
+              <% }%>
+
+              <% if (status == "caretaker") { %>
+                <thead>
+                  <tr>
+                    <th><span>Petowner</span></th>
+                    <th><span>Pet</span></th>
+                    <th><span>Earnings per day</span></th>
+                    <th ><span>Start date</span></th>
+                    <th><span>End date</span></th>
+                    <th><span>Status</span></th>
+                  </tr>
+                </thead>
+                <% }%>
+                
+              <tbody>
+                <% for (var i=0; i < size; i++) { %>
+                <tr>
+                  <% if (status == "petowner") { %>
+                  <td>
+                    <img src="/images/girl2.jpg" alt="">
+                    <a href="/browse/<%= data[i].ctuname %>"
+                      class="user-link"><%= data[i].ctuname %></a>
+                    <span class="user-subhead">Caretaker</span>
+                  </td>
+                  <td>
+                    <% }%>
+
+                <% if (status == "caretaker") { %>
+                    <td>
+                        <img src="/images/girl2.jpg" alt="">
+                        <a href="/browse/<%= data[i].pouname %>"
+                        class="user-link"><%= data[i].pouname %></a>
+                        <span class="user-subhead">Petowner</span>
+                    </td>
+                    <td>
+                <% }%>
+                    <span><%= data[i].name%></span>
+                  </td>
+                  <td>
+                    <%= data[i].price%>
+                  </td>
+                  <td>
+                    <%= data[i].s_date%>
+                  </td>
+                  <td>
+                    <%= data[i].e_date%>
+                  </td>
+                  <td>
+                    <%= data[i].status%>
+                  </td>
+
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+            <br>
+            <br>
+            <br>
+            <br>
+                <% if (size == 0 && status == "caretaker") { %>
+                    <h2>You have no completed jobs yet</h2>
+                <%}%>
+
+                <% if (size == 0 && status == "petowner") { %>
+                    <h2>You have not placed any bids yet</h2>
+                <%}%>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

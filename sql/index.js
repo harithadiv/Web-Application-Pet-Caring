@@ -52,6 +52,10 @@ sql.query = {
   get_num_of_parttime: "SELECT COUNT(*) FROM parttime",
 
   get_num_of_pets: "SELECT COUNT(*) FROM pets",
+
+  get_caretaker_history: "SELECT * FROM bids WHERE ctuname=$1 AND is_win = TRUE",
+
+  get_petowner_history: "SELECT *, CASE WHEN is_win=TRUE then 'ACCEPTED' WHEN is_win=FALSE AND s_date > now() THEN 'PENDING' ELSE 'REJECTED' END AS status FROM bids WHERE pouname = $1",
 };
 
 module.exports = sql;
