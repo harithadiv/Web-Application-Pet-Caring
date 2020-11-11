@@ -132,12 +132,14 @@ INSERT INTO fulltime (username) VALUES ('d');
 
 
 INSERT INTO animals (a_type) VALUES ('cat');
+INSERT INTO animals (a_type) VALUES ('dog');
 INSERT INTO animals (a_type) VALUES ('mouse');
 
 INSERT INTO pets (username, name, a_type) VALUES ('alice', 'tom', 'cat');
 INSERT INTO pets (username, name, a_type) VALUES ('alice', 'jerry', 'mouse');
 INSERT INTO pets (username, name, a_type) VALUES ('max', 'mickey', 'cat');
 INSERT INTO pets (username, name, a_type) VALUES ('max', 'garfield', 'cat');
+
 
 
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('bob', '2021-05-23', 0);
@@ -156,17 +158,33 @@ INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('d', '2021-
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('a', '2021-05-25', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('b', '2021-05-25', 0);
 INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('c', '2021-05-26', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('c', '2021-05-27', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('cindy', '2020-11-23', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('cindy', '2020-11-24', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('cindy', '2020-11-25', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('cindy', '2020-11-26', 0);
+INSERT INTO availability (username, avail_date, num_of_pets) VALUES ('cindy', '2020-11-27', 0);
+
+
+
+
 
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('bob', 'cat', 12);
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('a', 'cat', 12);
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('a', 'mouse', 12);
 INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('b', 'cat', 12);
-INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('b', 'mouse', 12);
+INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('c', 'mouse', 12);
+INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('c', 'cat', 12);
+INSERT INTO cares_for (ctuname, a_type, a_price) VALUES ('c', 'dog', 12);
 INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-23', '2021-05-25');
 INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-24', '2021-05-25');
 INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-26', '2021-05-26');
 INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-23', '2021-05-24');
 INSERT INTO bid_dates (s_date, e_date) VALUES ('2020-11-06', '2020-11-07');
+INSERT INTO bid_dates (s_date, e_date) VALUES ('2021-05-23', '2021-05-27');
+INSERT INTO bid_dates (s_date, e_date) VALUES ('2020-11-23', '2020-11-27');
+
+
 
 
 
@@ -176,6 +194,9 @@ INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date
 INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('alice', 'tom', 'c', 20, NULL, '2021-05-26', '2021-05-26');
 INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('max', 'mickey', 'b', 20, NULL, '2021-05-23', '2021-05-24');
 INSERT INTO bids (pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES ('max', 'garfield', 'a', 20, NULL, '2020-11-06', '2020-11-07');
+INSERT INTO bids (is_win, pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES (TRUE, 'max', 'garfield', 'c', 30, NULL, '2020-11-23', '2020-11-27');
+INSERT INTO bids (is_win, pouname, name, ctuname, price, transfer_method, s_date, e_date) VALUES (TRUE, 'max', 'mickey', 'cindy', 30, NULL, '2020-11-23', '2020-11-27');
+
 
 
 CREATE TRIGGER is_win_update
@@ -230,3 +251,46 @@ AFTER UPDATE
 ON availability
 FOR EACH ROW
 EXECUTE PROCEDURE remove_availability();
+
+CREATE TRIGGER is_win_fulltime_salary_update
+AFTER INSERT
+ON bids
+FOR EACH ROW
+WHEN (NEW.is_win = TRUE)
+EXECUTE PROCEDURE update_fulltime_salary();
+ 
+CREATE OR REPLACE FUNCTION update_fulltime_salary()
+RETURNS TRIGGER AS $$
+DECLARE sal numeric;
+BEGIN
+WITH pet_days AS (SELECT COALESCE(SUM(e_date - s_date + 1), 0) AS num_days FROM bids WHERE is_win = True AND ctuname = new.ctuname AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) SELECT CASE WHEN (SELECT num_days FROM pet_days) <= 2 THEN 3000 ELSE 3000 +  (SELECT ((SELECT num_days FROM pet_days) - 2)* MAX(price)*0.8 FROM bids WHERE  is_win = True AND ctuname = new.ctuname AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE))AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) END into sal;
+UPDATE caretakers
+SET salary = sal
+WHERE caretakers.username = new.ctuname AND new.ctuname IN (SELECT username FROM fulltime);
+RETURN NEW;
+END;
+$$
+ LANGUAGE plpgsql;
+
+CREATE TRIGGER is_win_parttime_salary_update
+AFTER INSERT
+ON bids
+FOR EACH ROW
+WHEN (NEW.is_win = TRUE)
+EXECUTE PROCEDURE update_parttime_salary();
+ 
+CREATE OR REPLACE FUNCTION update_parttime_salary()
+RETURNS TRIGGER AS $$
+DECLARE sal numeric;
+BEGIN
+SELECT 0.75 * SUM((e_date - s_date + 1) * price) 
+FROM bids
+WHERE is_win = TRUE AND ctuname = new.ctuname
+AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day'))) into sal;
+UPDATE caretakers
+SET salary = sal
+WHERE caretakers.username = new.ctuname AND new.ctuname IN (SELECT username FROM parttime);
+RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
