@@ -21,9 +21,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href="/auth/logout">Logout</a>
         </li>
@@ -43,6 +40,7 @@
       <img src="/images/girl2.jpg" alt="" class="d-block ui-w-100 rounded-circle">
       <div class="media-body ml-4">
         <h4 class="font-weight-bold mb-0"><%= firstName + " " + lastName%></h4>
+        <a href="/admin/registeradmin" class="btn btn-primary btn-md">Register New Admin</a>&nbsp;
         <a href="/auth/logout" class="btn btn-primary btn-md">Logout</a>&nbsp;
       </div>
     </div>
@@ -67,6 +65,33 @@
         </table>
       </div>
     </div>
+    <br>  
+    <h3>Salary</h3>
+    <div class="card mb-4">
+      <div class="table-responsive">
+        <table class="table card-table m-0">
+          <tbody>
+            <tr>
+              <th>Caretaker</th>
+              <th>Users Earnings</th>
+              <th>PCS commission</th>
+            </tr>
+            <tr>
+              <td>Part-time</td>
+              <td>$$$</td>
+              <td>$$$</td>
+            </tr>
+            <tr>
+              <td>Full-time</td>
+              <td>$$$</td>
+              <td>NIL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <br>
     <br>
     <h3>Active profile statistics</h3>
     <div class="card mb-4">

@@ -47,8 +47,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/auth/register">Register</a>
           </li>
-          <%}%>
-          <% if (status == "notLoggedIn") { %>
           <li class="nav-item">
             <a class="nav-link" href="/auth/login">Login</a>
           </li>
@@ -62,14 +60,14 @@
             </li>
             <%}%>
 
-            <% if (status == "caretaker") { %>
-              <li class="nav-item">
-                <a class="nav-link" href="/caretakers/<%= username %>">Profile</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/history">History</a>
-              </li>
-              <%}%>
+          <% if (status == "caretaker") { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/caretakers/<%= username %>">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/history">History</a>
+            </li>
+            <%}%>
           <% if (status == "petowner") { %>
           <li class="nav-item">
             <a class="nav-link" href="/browse">Browse</a>
