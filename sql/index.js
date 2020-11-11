@@ -38,10 +38,10 @@ sql.query = {
 
   // admin queries
   get_num_of_pets_within_month:
-    "SELECT COUNT(DISTINCT name) FROM bids WHERE is_win = TRUE AND (s_date >= '2021-05-01' AND s_date <= '2021-05-31') OR (e_date >= '2021-05-01' AND e_date <= '2021-05-31');",
+    "SELECT COUNT(DISTINCT name) FROM bids WHERE is_win = TRUE AND (s_date >= '2021-05-01' AND s_date <= '2021-05-31') OR (e_date >= '2021-05-01' AND e_date <= '2021-05-31')",
 
   get_atype_stats:
-    "SELECT a_type, COALESCE(pets, 0) AS pets, COALESCE(petowners, 0) AS petowners, COALESCE(caretakers,0) AS caretakers FROM (SELECT a_type, COUNT(*) AS pets FROM pets GROUP BY a_type) AS pets NATURAL LEFT JOIN(SELECT a_type, COUNT(DISTINCT(username)) AS petowners FROM pets GROUP BY a_type) AS petowners NATURAL LEFT JOIN (SELECT a_type, COUNT(DISTINCT(ctuname)) AS caretakers FROM cares_for GROUP BY a_type) AS caretakers;",
+    "SELECT a_type, COALESCE(pets, 0) AS pets, COALESCE(petowners, 0) AS petowners, COALESCE(caretakers,0) AS caretakers FROM (SELECT a_type, COUNT(*) AS pets FROM pets GROUP BY a_type) AS pets NATURAL LEFT JOIN(SELECT a_type, COUNT(DISTINCT(username)) AS petowners FROM pets GROUP BY a_type) AS petowners NATURAL LEFT JOIN (SELECT a_type, COUNT(DISTINCT(ctuname)) AS caretakers FROM cares_for GROUP BY a_type) AS caretakers",
 
   get_num_of_caretakers: "SELECT COUNT(*) FROM caretakers",
 
@@ -53,9 +53,16 @@ sql.query = {
 
   get_num_of_pets: "SELECT COUNT(*) FROM pets",
 
-  get_caretaker_history: "SELECT * FROM bids WHERE ctuname=$1 AND is_win = TRUE",
+  get_num_of_pet_days:
+    "SELECT COALESCE(SUM(e_date - s_date + 1), 0) AS num_days FROM bids WHERE is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE))AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))",
 
-  get_petowner_history: "SELECT *, CASE WHEN is_win=TRUE then 'ACCEPTED' WHEN is_win=FALSE AND s_date > now() THEN 'PENDING' ELSE 'REJECTED' END AS status FROM bids WHERE pouname = $1",
+  get_fulltime_salary:
+    "WITH pet_days AS (SELECT COALESCE(SUM(e_date - s_date + 1), 0) AS num_days FROM bids WHERE is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) SELECT CASE WHEN (SELECT num_days FROM pet_days) <= 60 THEN 3000 ELSE 3000 +  (SELECT ((SELECT num_days FROM pet_days) - 60)* MAX(price)*0.8 FROM bids WHERE  is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE))AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) END AS salary",
+  get_caretaker_history:
+    "SELECT * FROM bids WHERE ctuname=$1 AND is_win = TRUE",
+
+  get_petowner_history:
+    "SELECT *, CASE WHEN is_win=TRUE then 'ACCEPTED' WHEN is_win=FALSE AND s_date > now() THEN 'PENDING' ELSE 'REJECTED' END AS status FROM bids WHERE pouname = $1",
 };
 
 module.exports = sql;
