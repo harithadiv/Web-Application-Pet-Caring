@@ -27,9 +27,7 @@
         <li class="nav-item">
             <a class="nav-link" href="/browse">Browse</a>
           </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/">About us</a>
-        </li>
+  
       </ul>
     </div>
   </nav>
@@ -73,23 +71,56 @@
           <tbody>
             <tr>
               <th>Caretaker</th>
-              <th>Users Earnings</th>
               <th>PCS commission</th>
+              <th>Total Users Earnings</th>
             </tr>
             <tr>
               <td>Part-time</td>
-              <td>$$$</td>
-              <td>$$$</td>
+              <td>$<%=parseFloat(commission).toFixed(2)%></td>
+              <td>$<%=parseFloat(totalParttime).toFixed(2)%></td>
             </tr>
             <tr>
               <td>Full-time</td>
-              <td>$$$</td>
               <td>NIL</td>
+              <td>$<%=parseFloat(totalFulltime).toFixed(2)%></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><strong>Total: </strong>$<%=parseFloat(totalSal).toFixed(2)%></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <br>
+    <br>
+    <h3>Best Performing</h3>
+    <div class="card mb-4">
+      <div class="table-responsive">
+        <table class="table card-table m-0">
+          <tbody>
+            <tr>
+              <th>Caretaker</th>
+              <th>Username</th>
+              <th>Salary</th>
+            </tr>
+            <tr>
+              <td>Part-time</td>
+              <td><%= maxParttime%></td>
+              <td><%= maxParttimesal%></td>
+            </tr>
+            <tr>
+              <td>Full-time</td>
+              <td><%= maxFulltime%></td>
+              <td><%= maxFulltimesal%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
 
     <br>
     <br>

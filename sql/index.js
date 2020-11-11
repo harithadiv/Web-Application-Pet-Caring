@@ -56,8 +56,25 @@ sql.query = {
   get_num_of_pet_days:
     "SELECT COALESCE(SUM(e_date - s_date + 1), 0) AS num_days FROM bids WHERE is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE))AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))",
 
-  get_fulltime_salary:
+  get_indiv_fulltime_salary:
     "WITH pet_days AS (SELECT COALESCE(SUM(e_date - s_date + 1), 0) AS num_days FROM bids WHERE is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) SELECT CASE WHEN (SELECT num_days FROM pet_days) <= 60 THEN 3000 ELSE 3000 +  (SELECT ((SELECT num_days FROM pet_days) - 60)* MAX(price)*0.8 FROM bids WHERE  is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE))AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) END AS salary",
+
+ 
+  get_total_earnings:
+  "SELECT SUM(salary) FROM caretakers",
+
+  get_parttime_caretakers_total_salary:
+  "SELECT SUM(salary) FROM caretakers c WHERE c.username IN (SELECT username FROM parttime)",
+
+  get_fulltime_caretakers_total_salary:
+  "SELECT SUM(salary) FROM caretakers c WHERE c.username IN (SELECT username FROM fulltime)",
+
+  get_parttime_caretaker_with_max_salary:
+  "SELECT username, salary FROM caretakers WHERE salary = (SELECT MAX(salary) FROM caretakers WHERE caretakers.username IN (SELECT username FROM parttime)) AND caretakers.username IN (SELECT username FROM parttime) LIMIT 1",
+  
+  get_fulltime_caretaker_with_max_salary:
+  "SELECT username, salary FROM caretakers WHERE salary = (SELECT MAX(salary) FROM caretakers WHERE caretakers.username IN (SELECT username FROM fulltime)) AND caretakers.username IN (SELECT username FROM fulltime) LIMIT 1",
+
   get_caretaker_history:
     "SELECT * FROM bids WHERE ctuname=$1 AND is_win = TRUE",
 

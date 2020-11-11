@@ -58,6 +58,12 @@ router.get("/:username", adminMiddleware(), function (req, res, next) {
       );
       const numFulltime = await pool.query(sql_query.query.get_num_of_fulltime);
       const numParttime = await pool.query(sql_query.query.get_num_of_parttime);
+      const totalSal = await pool.query(sql_query.query.get_total_earnings);
+      const totalParttime = await pool.query(sql_query.query.get_parttime_caretakers_total_salary);
+      const totalFulltime = await pool.query(sql_query.query.get_fulltime_caretakers_total_salary);
+      const maxParttime = await pool.query(sql_query.query.get_parttime_caretaker_with_max_salary);
+      const maxFulltime = await pool.query(sql_query.query.get_fulltime_caretaker_with_max_salary);
+      const commission = await pool.query(sql_query.query.get_parttime_caretakers_total_salary);
 
       const atypestats = await pool.query(sql_query.query.get_atype_stats);
       const firstName = data.rows[0].first_name;
@@ -73,6 +79,14 @@ router.get("/:username", adminMiddleware(), function (req, res, next) {
         firstName: firstName,
         lastName: lastName,
         userName: username,
+        totalSal: totalSal.rows[0].sum,
+        totalFulltime: totalFulltime.rows[0].sum,
+        totalParttime: totalParttime.rows[0].sum,
+        maxFulltime: maxFulltime.rows[0].username,
+        maxFulltimesal:maxFulltime.rows[0].salary,
+        maxParttimesal:maxParttime.rows[0].salary,
+        maxParttime: maxParttime.rows[0].username,
+        commission: commission.rows[0].sum/3,
       });
     }
   });

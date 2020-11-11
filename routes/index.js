@@ -16,6 +16,8 @@ router.get("/", function (req, res, next) {
       status = "petowner";
     } else if (req.session.role == "caretaker") {
       status = "caretaker";
+    } else if (req.session.role == "admin") {
+      return res.redirect("/admin/" + username);
     }
   }
   res.render("index", { status: status, username: username });

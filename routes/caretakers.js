@@ -10,8 +10,9 @@ const pool = new Pool({
 });
 
 // Profile page
-router.get("/:username", caretakerMiddleware(), function (req, res, next) {
+router.get("/:username", caretakerMiddleware(), async function (req, res, next) {
   const username = req.params.username;
+  var caretakers = await pool.query(sql_query.query.get_caretaker, [username]);
   pool.query(sql_query.query.get_user, [username], (err, data) => {
     if (err) {
       res.render("error", err);
@@ -20,7 +21,7 @@ router.get("/:username", caretakerMiddleware(), function (req, res, next) {
     } else {
       const firstName = data.rows[0].first_name;
       const lastName = data.rows[0].last_name;
-      const salary = data.rows[0].salary;
+      const salary = caretakers.rows[0].salary;
 
       res.render("caretakers", {
         firstName: firstName,
