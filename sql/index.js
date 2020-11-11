@@ -58,6 +58,11 @@ sql.query = {
 
   get_fulltime_salary:
     "WITH pet_days AS (SELECT COALESCE(SUM(e_date - s_date + 1), 0) AS num_days FROM bids WHERE is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) SELECT CASE WHEN (SELECT num_days FROM pet_days) <= 60 THEN 3000 ELSE 3000 +  (SELECT ((SELECT num_days FROM pet_days) - 60)* MAX(price)*0.8 FROM bids WHERE  is_win = True AND ctuname = $1 AND ((s_date >= (SELECT date_trunc('month', CURRENT_DATE))AND s_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')) OR (e_date >= (SELECT date_trunc('month', CURRENT_DATE)) AND e_date <= (SELECT date_trunc('month', CURRENT_DATE) + interval '1 month - 1 day')))) END AS salary",
+  get_caretaker_history:
+    "SELECT * FROM bids WHERE ctuname=$1 AND is_win = TRUE",
+
+  get_petowner_history:
+    "SELECT *, CASE WHEN is_win=TRUE then 'ACCEPTED' WHEN is_win=FALSE AND s_date > now() THEN 'PENDING' ELSE 'REJECTED' END AS status FROM bids WHERE pouname = $1",
 };
 
 module.exports = sql;

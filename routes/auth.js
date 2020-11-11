@@ -27,27 +27,30 @@ router.post("/register", antiMiddleware(), function (req, res, next) {
   var firstname = req.body.firstname;
   var lastname = req.body.lastname;
   var role = req.body.role;
-  pool.query(
-    sql_query.query.add_user,
-    [username, password, firstname, lastname],
-    (err, data) => {
-      if (err) {
-        return next(err);
-      }
-      if (role == "petowner") {
-        pool.query(sql_query.query.add_petowner, [username]);
-      } else if (role == "caretaker") {
-        pool.query(sql_query.query.add_caretaker, [username]);
-      }
-      res.redirect("/");
-    }
-  );
+  pool.query(sql_query.query.add_user, [
+    username,
+    password,
+    firstname,
+    lastname,
+  ]);
+  if (role == "petowner") {
+    pool.query(sql_query.query.add_petowner, [username]);
+  } else if (role == "caretaker") {
+    pool.query(sql_query.query.add_caretaker, [username]);
+  }
+  res.redirect("/auth/thankyou");
 });
 
 // Login
 router.get("/login", antiMiddleware(), function (req, res, next) {
   res.render("login");
 });
+
+//Registration thank you 
+router.get("/thankyou", antiMiddleware(), function (req, res, next) {
+  res.render("thankyou");
+});
+
 
 router.post("/login", antiMiddleware(), function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
