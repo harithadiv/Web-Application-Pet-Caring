@@ -2,12 +2,47 @@ const sql_query = require("../sql");
 var express = require("express");
 var router = express.Router();
 const { Pool } = require("pg");
+const bcrypt = require("bcrypt");
 const adminMiddleware = require("../auth/adminmiddle");
 
 // Connect to database
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
+
+// Password hashing setup
+const round = 10;
+const salt = bcrypt.genSaltSync(round);
+
+
+router.get("/thankyouadmin", adminMiddleware(), function (req, res, next) {
+  var username = req.user.username;
+  res.render("thankyouadmin", {username: username});
+});
+
+// Register
+router.get("/registeradmin", adminMiddleware(), function (req, res, next) {
+  res.render("registeradmin");
+});
+
+router.post("/registeradmin", adminMiddleware(), async function (req, res, next) {
+  var username = req.body.username;
+  var password = bcrypt.hashSync(req.body.password, salt);
+  var firstname = req.body.firstname;
+  var lastname = req.body.lastname;
+  console.log(username);
+  await pool.query(sql_query.query.add_user, [
+    username,
+    password,
+    firstname,
+    lastname,
+  ]);
+    await pool.query(sql_query.query.add_admin, [username]);
+  
+  res.redirect("/admin/thankyouadmin");
+});
+
+
 
 router.get("/:username", adminMiddleware(), function (req, res, next) {
   const username = req.params.username;
@@ -42,5 +77,8 @@ router.get("/:username", adminMiddleware(), function (req, res, next) {
     }
   });
 });
+
+
+
 
 module.exports = router;
